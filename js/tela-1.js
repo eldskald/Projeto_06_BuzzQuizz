@@ -6,7 +6,11 @@ function carregarTelaUm () {
 }
 
 function botaoCriarQuizz(){
-    MAIN.innerHTML = `
+    const aux = pegarQuizzesCriados();
+    console.log(aux);
+    if(!aux){
+        console.log("teste 1")
+        MAIN.innerHTML = `
     <div class = "CriarQuizzouQuizzCriados">
         <p>Você não criou nenhum</br> quizz ainda :(</p>
         <button class="botaoCriarQuizz" onclick="carregaTela3()">
@@ -14,6 +18,12 @@ function botaoCriarQuizz(){
         </button>
     </div>
         `
+    }
+    else{
+        const quizzes = resposta.data.filter((quiz) => possuiSalvo(quiz.id));
+        renderizarQuizzes(quizzes);
+        console.log("teste 2")
+    }
 }
 
 
@@ -66,7 +76,7 @@ function salvarQuizzesCriados (arr) {
 function pegarQuizzesCriados () {
     const dado = JSON.parse(localStorage.getItem("quizzesCriados"));
     if (dado === null) {
-        return [];
+        return false;
     }
     return JSON.parse(dadoSerializado);
 }
