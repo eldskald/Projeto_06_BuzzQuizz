@@ -8,16 +8,12 @@ function carregarTelaUm () {
 
 // Funções relacionadas a carregar os quizzes da seção de todos os quizzes.
 function carregarQuizzes () {
-    const promessa = axios.get(API_TESTE);
+    const promessa = axios.get(API_URL);
 
     promessa.then(function (resposta) {
-        const quizzes = resposta.data.filter(filtrarQuizzes);
+        const quizzes = resposta.data.filter((quiz) => !possuiSalvo(quiz.id));
         renderizarQuizzes(quizzes);
     });
-}
-
-function filtrarQuizzes (quiz) {
-    return true;    // Sem filtragem por enquanto
 }
 
 function renderizarQuizzes (quizzes) {
@@ -46,6 +42,36 @@ function gerarQuizHTML (quiz) {
     `;
 }
 // Funções relacionadas a carregar os quizzes da seção de todos os quizzes.
+
+
+
+// Lida com a serialização no localStorage das quizzes criads pelo usuário.
+function salvarQuizzesCriados (arr) {
+    const dadoSerializado = JSON.stringify(arr);
+    localStorage.setItem("quizzesCriados", dadoSerializado);
+}
+
+function pegarQuizzesCriados () {
+    const dado = JSON.parse(localStorage.getItem("quizzesCriados"));
+    if (dado === null) {
+        return [];
+    }
+    return JSON.parse(dadoSerializado);
+}
+
+function possuiSalvo (id) {
+    const arr = pegarQuizzesCriados();
+    if (arr.length === 0) {
+        return false;
+    }
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === id) {
+            return true;
+        }
+    }
+    return false;
+}
+// Lida com a serialização no localStorage das quizzes criads pelo usuário.
 
 
 
