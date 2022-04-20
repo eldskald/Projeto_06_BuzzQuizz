@@ -48,13 +48,13 @@ body > main {
     align-items: center;
 }
 
-.CriarQuizzouQuizzCriados.escondido{
+/* .CriarQuizzouQuizzCriados.escondido{
     display: none;
 }
 
 .lista-de-quizzes.escondido{
     display: none;
-}
+} */
 
 @media (max-width: 1100px) {
 
