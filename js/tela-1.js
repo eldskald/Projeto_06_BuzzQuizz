@@ -1,7 +1,7 @@
 
 function carregarTelaUm () {
     limparMain();
-    botaoCriarQuizz()
+    botaoCriarQuizz();
     carregarQuizzes();
 }
 
@@ -11,13 +11,13 @@ function botaoCriarQuizz(){
     if(!aux){
         console.log("teste 1")
         MAIN.innerHTML = `
-    <div class = "CriarQuizzouQuizzCriados">
-        <p>Você não criou nenhum</br> quizz ainda :(</p>
-        <button class="botaoCriarQuizz" onclick="carregaTela3()">
-            <p>Criar Quizz</p>
-        </button>
-    </div>
-        `
+            <div class = "CriarQuizzouQuizzCriados">
+                <p>Você não criou nenhum</br> quizz ainda :(</p>
+                <button class="botaoCriarQuizz" onclick="carregaTela3()">
+                    <p>Criar Quizz</p>
+                </button>
+            </div>
+        `;
     }
     else{
         const quizzes = resposta.data.filter((quiz) => possuiSalvo(quiz.id));
@@ -33,15 +33,16 @@ function carregarQuizzes () {
     const promessa = axios.get(API_URL);
 
     promessa.then(function (resposta) {
-        const quizzes = resposta.data.filter((quiz) => !possuiSalvo(quiz.id));
-        renderizarQuizzes(quizzes);
+        arrayQuizzes = resposta.data;
+        const quizzes = arrayQuizzes.filter((quiz) => !possuiSalvo(quiz.id));
+        renderizarQuizzes();
     });
 }
 
-function renderizarQuizzes (quizzes) {
+function renderizarQuizzes () {
     let quizzesHTML = "";
-    for (let i = 0; i < quizzes.length; i++) {
-        quizzesHTML += gerarQuizHTML(quizzes[i]);
+    for (let i = 0; i < arrayQuizzes.length; i++) {
+        quizzesHTML += gerarQuizHTML(arrayQuizzes[i]);
     }
     MAIN.innerHTML += `
         <section class="lista-de-quizzes">
