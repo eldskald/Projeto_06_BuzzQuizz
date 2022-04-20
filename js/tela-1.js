@@ -1,5 +1,5 @@
 
-function carregarTelaUm () {
+function carregarTela1 () {
     limparMain();
     botaoCriarQuizz();
     carregarQuizzes();
@@ -56,7 +56,7 @@ function renderizarQuizzes () {
 
 function gerarQuizHTML (quiz) {
     return `
-        <figure>
+        <figure onclick="carregarTela2(${quiz.id})">
             <img src=${quiz.image} />
             <figcaption>
                 ${quiz.title}
@@ -98,4 +98,4 @@ function possuiSalvo (id) {
 
 
 
-carregarTelaUm();
+carregarTela1();

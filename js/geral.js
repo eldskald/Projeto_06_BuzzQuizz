@@ -11,3 +11,12 @@ let arrayQuizzes = [];
 
 const limparMain = () => { MAIN.innerHTML = ""; };
 
+function pegarQuizPeloID (id) {
+    for (let i = 0; i < arrayQuizzes.length; i++) {
+        const quiz = arrayQuizzes[i];
+        if (quiz.id === id) {
+            return quiz;
+        }
+    }
+    return null;
+}

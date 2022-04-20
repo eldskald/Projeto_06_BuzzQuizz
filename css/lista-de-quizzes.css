@@ -1,6 +1,6 @@
 
 .lista-de-quizzes {
-    width: 100%;
+    width: 1100px;
     margin: 32px 0px;
 
     padding: 16px;
@@ -68,6 +68,8 @@
 @media (max-width: 1100px) {
 
     .lista-de-quizzes {
+        width: 100%;
+        
         margin: 0px;
         border: 0px none transparent;
     }
