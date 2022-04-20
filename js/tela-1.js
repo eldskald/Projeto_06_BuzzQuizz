@@ -1,7 +1,19 @@
 
 function carregarTelaUm () {
     limparMain();
+    botaoCriarQuizz()
     carregarQuizzes();
+}
+
+function botaoCriarQuizz(){
+    MAIN.innerHTML = `
+    <div class = "CriarQuizzouQuizzCriados">
+        <p>Você não criou nenhum</br> quizz ainda :(</p>
+        <button class="botaoCriarQuizz" onclick="carregaTela3()">
+            <p>Criar Quizz</p>
+        </button>
+    </div>
+        `
 }
 
 

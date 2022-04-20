@@ -64,3 +64,11 @@ body > main {
         overflow: scroll;
     }
 }
+
+.CriarQuizzouQuizzCriados.escondido{
+    display: none;
+}
+
+.lista-de-quizzes.escondido{
+    display: none;
+}
