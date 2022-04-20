@@ -15,14 +15,14 @@
 
     font-size: 23px;
     color: white;
-    font-family: var(--display);
+    font-family: var(--script);
     font-weight: bold;
 }
 
 .quadroRespostas{
     width: 600px;
 
-    background-color: var(--subcolor);
+    background-color: var(--maincolor);
 
     display: flex;
     flex-direction: column;
@@ -45,7 +45,7 @@ input{
 }
 
 input::placeholder{
-    font-family: var(--display);
+    font-family: var(--script);
     font-size: 14px;
     color: #BABABA;
 }
@@ -56,11 +56,11 @@ input::placeholder{
     width: 300px;
     height: 40px;
 
-    background-color: var(--subcolor);
+    background-color: var(--maincolor);
 
     border-radius: 15px;
 
-    font-family: var(--display);
+    font-family: var(--script);
     font-size: 14px;
     font-weight: 700;
 }

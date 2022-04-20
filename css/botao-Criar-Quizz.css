@@ -19,13 +19,13 @@
 }
 
 .botaoCriarQuizz{
-    border: 1px dashed var(--subcolor);
+    border: 1px dashed var(--maincolor);
     border-radius: 50px;
 
     background-color: rgba(0, 0, 0, 0);
     
     font-family: var(--script);
-    color: var(--subcolor);
+    color: var(--maincolor);
     font-size: 20px;
     margin-top: 15px;
 }
