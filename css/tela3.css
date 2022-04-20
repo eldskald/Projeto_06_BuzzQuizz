@@ -20,7 +20,7 @@
 }
 
 .quadroRespostas{
-    width: 600px;
+    width: 55%;
 
     background-color: var(--maincolor);
 
@@ -34,7 +34,7 @@
 }
 
 input{
-    width: 560px;
+    width: 90%;
     height: 45px;
 
     margin: 10px;
@@ -53,7 +53,7 @@ input::placeholder{
 .prosseguir{
     margin-top: 80px;
 
-    width: 300px;
+    width: 30%;
     height: 40px;
 
     background-color: var(--maincolor);
@@ -65,6 +65,32 @@ input::placeholder{
     font-weight: 700;
 }
 
-.InfosBasicas.escondido{
-    display: none;
+.perguntas{
+    width: 55%;
+    height: 75px;
+
+    background-color: var(--maincolor);
+
+    margin-top: 30px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.perg{
+    color: white;
+    font-family: var(--script);
+    font-size: 18px;
+}
+
+.HPerg{
+    margin-top: 20px;
+}
+
+.perguntas ion-icon{
+    font-size: 25px;
 }

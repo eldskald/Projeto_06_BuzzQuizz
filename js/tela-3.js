@@ -1,3 +1,9 @@
+//Variaveis globais
+let titulo;
+let Url;
+let NPerg;
+let NNiveis;
+
 //Essa funçao faz com que a tela 1 saia da tela e ainda vai adicionar a tela 3
 
 function carregaTela3(){
@@ -46,15 +52,40 @@ function verifNiveis(NNiveis){
     }
 }
 
+function montaPost(elemento){
+    console.log("deu")
+    let aux = elemento.parentNode;
+    const nome = aux.innerText;
+    aux = `
+        <div class="pergExpandida">
+            <p>${nome}</p>
+            <input class="TXTPerg" type="text" placeholder="Texto da pergunta"></input>
+            <input class="CorPerg" type="text" placeholder="Cor de fundo da pergunta"></input>
+        
+        </div>
+    
+    `
+}
+
 function criarPerguntas(){
     limparMain();
+    let auxiliar = `<header class="HPerg"><p class="perg">Crie suas perguntas</p></header>`; 
+    for(let i = 1; i <= NPerg; i++){
+        auxiliar += `
+        <div class="perguntas">
+            <p class="perg">Pergunta ${i}</p>
+            <span onclick="montaPost(this)"><ion-icon name="create-outline"></ion-icon></span>
+        </div>
+        `
+    }
+    MAIN.innerHTML = auxiliar;
 }
 
 function verificaInformacoes(){
-    const titulo = document.querySelector(".title").value;
-    const Url = document.querySelector(".urlIMG").value;
-    const NPerg = Number(document.querySelector(".NPerguntas").value);
-    const NNiveis = Number(document.querySelector(".NNiveis").value);
+    titulo = document.querySelector(".title").value;
+    Url = document.querySelector(".urlIMG").value;
+    NPerg = Number(document.querySelector(".NPerguntas").value);
+    NNiveis = Number(document.querySelector(".NNiveis").value);
     
     const aux = verifTitulo(titulo);
     const aux2 = verifUrl(Url);
