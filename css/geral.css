@@ -35,7 +35,7 @@ body > header {
     font-family: var(--display);
     font-weight: bold;
     font-size: 58px;
-    color: var(--fontcolor);
+    color: white;
 }
 
 body > main {
