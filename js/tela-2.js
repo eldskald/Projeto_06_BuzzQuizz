@@ -1,13 +1,20 @@
 
+let perguntasAcertadas;
+let totalDePerguntas;
 
 function carregarTela2 (id) {
     limparMain();
     const quiz = pegarQuizPeloID(id);
     renderizarQuiz(quiz);
+    perguntasAcertadas = 0;
+    totalDePerguntas = quiz.questions.length;
     window.scrollTo(0, 0);
     MAIN.scrollTo(0, 0);
 }
 
+
+
+// Funções que lidam com renderização dos quizzes
 function renderizarQuiz (quiz) {
     MAIN.innerHTML += renderizarTituloDoQuiz(quiz);
     for (let i = 0; i < quiz.questions.length; i++) {
@@ -44,12 +51,47 @@ function renderizarPergunta (pergunta) {
 }
 
 function renderizarResposta (resposta) {
+    let classes;
+    if (resposta.isCorrectAnswer) {
+        classes = "certa";
+    }
+    else {
+        classes = "errada";
+    }
     return `
         <figure>
-            <img src=${resposta.image} />
-            <figcaption>
+            <img class="nao-revelada ${classes}" src=${resposta.image} onclick="escolherResposta(this)" />
+            <figcaption class="nao-revelada ${classes}">
                 ${resposta.text}
             </figcaption>
         </figure>
     `;
 }
+// Funções que lidam com renderização dos quizzes
+
+
+
+// Funções que lidam com o comportamento das respostas
+function escolherResposta (nodo) {
+    const perguntaNodo = nodo.parentNode.parentNode.parentNode;
+    if (perguntaNodo.classList.contains("respondida")) {
+        return;
+    }
+
+    perguntaNodo.classList.add("respondida");
+    const respostas = perguntaNodo.querySelector("div").querySelectorAll("figure");
+    for (let i = 0; i < respostas.length; i++) {
+        revelarResposta(respostas[i]);
+    }
+
+    const acertou = nodo.classList.contains("certa");
+    if (acertou) {
+        perguntasAcertadas++;
+    }
+}
+
+function revelarResposta (nodo) {
+    nodo.querySelector("img").classList.remove("nao-revelada");
+    nodo.querySelector("figcaption").classList.remove("nao-revelada");
+}
+// Funções que lidam com o comportamento das respostas

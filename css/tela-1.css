@@ -75,6 +75,12 @@
     border: 0px solid transparent;
     border-radius: 8px;
     cursor: pointer;
+    filter: brightness(80%);
+    transition: filter 0.5s;
+}
+
+.lista-de-quizzes > div > figure:hover {
+    filter: brightness(120%);
 }
 
 .lista-de-quizzes > div > figure > img {
@@ -118,5 +124,9 @@
         
         margin: 0px;
         border: 0px none transparent;
+    }
+
+    .lista-de-quizzes > div > figure {
+        filter: brightness(100%);
     }
 }

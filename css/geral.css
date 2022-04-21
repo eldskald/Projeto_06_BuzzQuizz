@@ -4,6 +4,8 @@
     --maincolor: #107769;
     --subcolor: #205a28;
     --fontcolor: #e2e9f7;
+    --rightanswer: rgb(5, 204, 5);
+    --wronganswer: rgb(255, 0, 0);
 
     --script: "Ubuntu";
     --display: "Montserrat";
