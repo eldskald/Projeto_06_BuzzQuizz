@@ -35,6 +35,7 @@
                  4px -4px 8px black,
                  -4px -4px 8px black;
     color: var(--fontcolor);
+    text-align: center;
     word-break: break-word;
 }
 /* Título do quiz no topo da página */
@@ -114,3 +115,26 @@
     color: var(--fontcolor);
 }
 /* Perguntas */
+
+
+
+@media (max-width: 1100px) {
+
+    .titulo-do-quiz {
+        min-height: 128px;
+    }
+
+    .titulo-do-quiz > h1 {
+        font-size: 32px;
+    }
+
+    .pergunta-container {
+        width: 100%;
+
+        border-top: 3px solid var(--subcolor);
+        border-bottom: 3px solid var(--subcolor);
+        border-left: 0px none transparent;
+        border-right: 0px none transparent;
+        border-radius: 0px;
+    }
+}

@@ -27,14 +27,7 @@ function renderizarPergunta (pergunta) {
     let arrRespostas = pergunta.answers;
     arrRespostas.sort(() => Math.random() - 0.5);
     for (let i = 0; i < arrRespostas.length; i++) {
-        respostasHTML += `
-            <figure>
-                <img src=${arrRespostas[i].image} />
-                <figcaption>
-                    ${arrRespostas[i].text}
-                </figcaption>
-            </figure>
-        `;
+        respostasHTML += renderizarResposta(arrRespostas[i]);
     }
     return `
         <section class="pergunta-container">
@@ -45,5 +38,16 @@ function renderizarPergunta (pergunta) {
                 ${respostasHTML}
             </div>
         </section>
+    `;
+}
+
+function renderizarResposta (resposta) {
+    return `
+        <figure>
+            <img src=${resposta.image} />
+            <figcaption>
+                ${resposta.text}
+            </figcaption>
+        </figure>
     `;
 }
