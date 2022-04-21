@@ -50,10 +50,17 @@ input::placeholder{
     color: #BABABA;
 }
 
+.container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .prosseguir{
     margin-top: 80px;
+    margin-bottom: 50px;
 
-    width: 30%;
+    width: 40%;
     height: 40px;
 
     background-color: var(--maincolor);
@@ -67,7 +74,7 @@ input::placeholder{
 
 .perguntas{
     width: 55%;
-    height: 75px;
+    min-height: 75px;
 
     background-color: var(--maincolor);
 
@@ -93,4 +100,31 @@ input::placeholder{
 
 .perguntas ion-icon{
     font-size: 25px;
+}
+
+.perguntas.expandida{
+    height: fit-content;
+}
+
+.expandida .perg{
+    color: white;
+    font-family: var(--script);
+    font-size: 18px;
+    margin-top: 18px;
+}
+
+.finalizarPerg{
+    margin-top: 80px;
+    margin-bottom: 30px;
+
+    color: white;
+    font-family: var(--script);
+    font-size: 18px;
+
+    background-color: var(--maincolor);
+
+    border-radius: 10px;
+
+    width: 30%;
+    min-height: 45px;
 }

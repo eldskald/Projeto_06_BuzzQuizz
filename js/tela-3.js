@@ -13,23 +13,19 @@ function carregaTela3(){
 
 function verifTitulo(titulo){
     if(titulo.length >= 20 && titulo.length <= 65){
-        console.log("valido")
         return true;
     }
     else{
-        console.log("n valido")
         return false;
     }
 }
 
 function verifUrl(url){
     const pattern = "https://";
-    if (url.includes(pattern)) {
-        console.log("é url")    
+    if (url.includes(pattern)) {    
         return true;
     }
     else {
-        console.log("n é url")
         return false;
     }
 }
@@ -53,33 +49,65 @@ function verifNiveis(NNiveis){
 }
 
 function montaPost(elemento){
-    console.log("deu")
     let aux = elemento.parentNode;
+    const aux2 = aux.innerHTML;
+    const pergExpandida = document.querySelector(".expandida")
+    const txt = document.querySelector(".marker");
+    if(pergExpandida !== null){
+        const txt2 = txt.innerHTML;
+        pergExpandida.classList.remove("expandida");
+        pergExpandida.innerHTML = `
+                <p class="perg">${txt2}</p>
+                <span onclick="montaPost(this)"><ion-icon name="create-outline"></ion-icon></span>
+            `
+            console.log(pergExpandida);
+    }
+    aux.classList.add("expandida");
     const nome = aux.innerText;
-    aux = `
+    console.log(nome);
+    const num = Number(nome.replace("Pergunta ",""));
+    aux.innerHTML = `
         <div class="pergExpandida">
-            <p>${nome}</p>
-            <input class="TXTPerg" type="text" placeholder="Texto da pergunta"></input>
-            <input class="CorPerg" type="text" placeholder="Cor de fundo da pergunta"></input>
-        
+            <p class="perg marker">${nome}</p>
+            <input class="TXTPerg-${num}" type="text" placeholder="Texto da pergunta"></input>
+            <input class="CorPerg-${num}" type="text" placeholder="Cor de fundo da pergunta"></input>
+
+            <p class="perg">Resposta correta</p>
+            <input class="RespCorreta-${num}" type="text" placeholder="Resposta Correta"></input>
+            <input class="IMGCorreta-${num}" type="text" placeholder="URL da imagem"></input>
+
+            <p class="perg">Respostas incorretas</p>
+            <input class="RespIncorreta1-${num}" type="text" placeholder="Resposta Incorreta 1"></input>
+            <input class="IMGIncorreta1-${num}" type="text" placeholder="URL da imagem 1"></input>
+
+            <input class="RespIncorreta2-${num}" type="text" placeholder="Resposta Incorreta 2"></input>
+            <input class="IMGIncorreta2-${num}" type="text" placeholder="URL da imagem 2"></input>
+
+            <input class="RespIncorreta3-${num}" type="text" placeholder="Resposta Incorreta 3"></input>
+            <input class="IMGIncorreta3-${num}" type="text" placeholder="URL da imagem 3"></input>
+
         </div>
-    
     `
+    console.log(aux.innerHTML)
 }
+
 
 function criarPerguntas(){
     limparMain();
     let auxiliar = `<header class="HPerg"><p class="perg">Crie suas perguntas</p></header>`; 
     for(let i = 1; i <= NPerg; i++){
         auxiliar += `
+        <div class="container">
         <div class="perguntas">
             <p class="perg">Pergunta ${i}</p>
             <span onclick="montaPost(this)"><ion-icon name="create-outline"></ion-icon></span>
         </div>
+        </div>
         `
     }
-    MAIN.innerHTML = auxiliar;
+    MAIN.innerHTML = auxiliar + `<button class="finalizarPerg">Prosseguir para criar níveis</button>`;
 }
+
 
 function verificaInformacoes(){
     titulo = document.querySelector(".title").value;
@@ -93,7 +121,6 @@ function verificaInformacoes(){
     const aux4 = verifNiveis(NNiveis);
 
     if(aux && aux2 && aux3 && aux4){
-        console.log("Tudo certo");
         criarPerguntas();
     }
     else{

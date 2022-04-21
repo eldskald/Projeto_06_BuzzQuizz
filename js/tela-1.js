@@ -7,9 +7,7 @@ function carregarTela1 () {
 
 function botaoCriarQuizz(){
     const aux = pegarQuizzesCriados();
-    console.log(aux);
     if(!aux){
-        console.log("teste 1")
         MAIN.innerHTML = `
             <div class = "CriarQuizzouQuizzCriados">
                 <p>Você não criou nenhum</br> quizz ainda :(</p>
@@ -22,7 +20,6 @@ function botaoCriarQuizz(){
     else{
         const quizzes = resposta.data.filter((quiz) => possuiSalvo(quiz.id));
         renderizarQuizzes(quizzes);
-        console.log("teste 2")
     }
 }
 
