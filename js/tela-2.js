@@ -4,6 +4,8 @@ function carregarTela2 (id) {
     limparMain();
     const quiz = pegarQuizPeloID(id);
     renderizarQuiz(quiz);
+    window.scrollTo(0, 0);
+    MAIN.scrollTo(0, 0);
 }
 
 function renderizarQuiz (quiz) {

@@ -1,4 +1,42 @@
 
+/* Botão de criar quizz */
+.CriarQuizzouQuizzCriados{
+    width: 1100px;
+    min-height: 180px;
+
+    margin-top: 55px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 20px;
+    font-family: var(--script);
+    color: #B9B9B9;
+    text-align: center;
+
+    border: 1px dashed #D5D5D5;
+    border-radius: 5px;
+}
+
+.botaoCriarQuizz{
+    border: 1px dashed var(--maincolor);
+    border-radius: 50px;
+
+    background-color: rgba(0, 0, 0, 0);
+    cursor: pointer;
+    
+    font-family: var(--script);
+    color: var(--maincolor);
+    font-size: 20px;
+    margin-top: 15px;
+}
+/* Botão de criar quizz */
+
+
+
+/* Lista de quizzes */
 .lista-de-quizzes {
     width: 1100px;
     margin: 32px 0px;
@@ -28,7 +66,7 @@
     align-items: center;
 }
 
-.lista-de-quizzes > div > figure {
+.lista-de-quizzes > div > figure { /* Botão de cada quiz */
     position: relative;
     width: 340px;
     height: 180px;
@@ -36,6 +74,7 @@
 
     border: 0px solid transparent;
     border-radius: 8px;
+    cursor: pointer;
 }
 
 .lista-de-quizzes > div > figure > img {
@@ -64,8 +103,15 @@
     color: var(--fontcolor);
     word-break: break-word;
 }
+/* Lista de quizzes */
+
+
 
 @media (max-width: 1100px) {
+
+    .CriarQuizzouQuizzCriados{
+        width: 100%;
+    }
 
     .lista-de-quizzes {
         width: 100%;

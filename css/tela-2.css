@@ -95,6 +95,8 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+
+    cursor: pointer;
 }
 
 .pergunta-container > div > figure > img {
