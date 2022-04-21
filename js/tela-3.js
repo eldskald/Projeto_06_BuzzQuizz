@@ -4,6 +4,12 @@ let Url;
 let NPerg;
 let NNiveis;
 
+// Objeto que recebe as informações do Quizz
+let quizz=[];
+let questions=[];
+// Objeto que recebe as informações do Quizz
+
+
 //Essa funçao faz com que a tela 1 saia da tela e ainda vai adicionar a tela 3
 
 function carregaTela3(){
@@ -22,7 +28,7 @@ function verifTitulo(titulo){
 
 function verifUrl(url){
     const pattern = "https://";
-    if (url.includes(pattern)) {    
+    if (url.includes(pattern) || url =="") {    
         return true;
     }
     else {
@@ -48,25 +54,118 @@ function verifNiveis(NNiveis){
     }
 }
 
+function VTXTperg(TXT){
+    if(TXT.length >= 20){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+function VCor(cor){
+    const auxiliar = cor.includes("#");
+    if(auxiliar && cor.length == 7){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+function VRespostas(RCorreta, RINcorreta1, RINcorreta2,RINcorreta3){
+    if(RCorreta!="" && (RINcorreta1!="" || RINcorreta2!="" || RINcorreta3!="" )){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+let contador = 0;
+
+function verifResp(elemento,numero){
+
+    const pai = elemento.parentNode;
+    const txt = document.querySelector(".marker").innerHTML;
+
+    const TXTP = document.querySelector(`.TXTPerg-${numero}`).value;
+    const Cor = document.querySelector(`.CorPerg-${numero}`).value;
+    const RCorreta = document.querySelector(`.RespCorreta-${numero}`).value;
+    const URLCorreta = document.querySelector(`.IMGCorreta-${numero}`).value;
+    const RINcorreta1 = document.querySelector(`.RespIncorreta1-${numero}`).value;
+    const UrlIncorreta1 = document.querySelector(`.IMGIncorreta1-${numero}`).value;
+    const RINcorreta2 = document.querySelector(`.RespIncorreta2-${numero}`).value;
+    const UrlIncorreta2 = document.querySelector(`.IMGIncorreta2-${numero}`).value;
+    const RINcorreta3 = document.querySelector(`.RespIncorreta3-${numero}`).value;
+    const UrlIncorreta3 = document.querySelector(`.IMGIncorreta3-${numero}`).value;
+    
+    const aux = VTXTperg(TXTP);
+    const aux2 = VCor(Cor);
+    const aux3 = VRespostas(RCorreta, RINcorreta1, RINcorreta2,RINcorreta3);
+    const aux4 = verifUrl(URLCorreta);
+    const aux5 = verifUrl(UrlIncorreta1);
+    const aux6 = verifUrl(UrlIncorreta2);
+    const aux7 = verifUrl(UrlIncorreta3);
+   
+    
+   if(aux && aux2 && aux3 && aux4 && aux5 && aux6 && aux7){
+        questions[contador]= {
+
+			title: TXTP,
+			color: Cor,
+			answers: [
+				{
+					text: RCorreta,
+					image: URLCorreta,
+					isCorrectAnswer: true
+				},
+				{
+					text: RINcorreta1,
+					image: UrlIncorreta1,
+					isCorrectAnswer: false
+				},
+                {
+					text: RINcorreta2,
+					image: UrlIncorreta2,
+					isCorrectAnswer: false
+				},
+                {
+					text: RINcorreta3,
+					image: UrlIncorreta3,
+					isCorrectAnswer: false
+				},
+
+			]
+		}
+        contador++;
+        pai.innerHTML = `
+                <span class="perg">${txt}</span>
+                <span><ion-icon name="checkmark-outline"></ion-icon></span>
+        `
+   }
+   else{
+       alert("Revise suas resposta e preencha os campos corretamente.");
+   }
+   
+   
+    quizz = [{
+        title: titulo,
+        image: Url,
+        questions: questions
+    }]
+    console.log(quizz); 
+}
+
+
 function montaPost(elemento){
     let aux = elemento.parentNode;
-    const aux2 = aux.innerHTML;
-    const pergExpandida = document.querySelector(".expandida")
-    const txt = document.querySelector(".marker");
-    if(pergExpandida !== null){
-        const txt2 = txt.innerHTML;
-        pergExpandida.classList.remove("expandida");
-        pergExpandida.innerHTML = `
-                <p class="perg">${txt2}</p>
-                <span onclick="montaPost(this)"><ion-icon name="create-outline"></ion-icon></span>
-            `
-            console.log(pergExpandida);
-    }
     aux.classList.add("expandida");
     const nome = aux.innerText;
-    console.log(nome);
+    
     const num = Number(nome.replace("Pergunta ",""));
     aux.innerHTML = `
+    
         <div class="pergExpandida">
             <p class="perg marker">${nome}</p>
             <input class="TXTPerg-${num}" type="text" placeholder="Texto da pergunta"></input>
@@ -86,9 +185,22 @@ function montaPost(elemento){
             <input class="RespIncorreta3-${num}" type="text" placeholder="Resposta Incorreta 3"></input>
             <input class="IMGIncorreta3-${num}" type="text" placeholder="URL da imagem 3"></input>
 
+            <button class="salvar" onclick="verifResp(this,${num})">Salvar Respostas!</button>
+
         </div>
+    
     `
-    console.log(aux.innerHTML)
+}
+
+function passarNiveis(){
+    if(questions.length == (contador)){
+        limparMain();
+        
+
+    }
+    else{
+        alert("Você não prencheu todos os campos necessários, verifique suas respostas e tente novamente!")
+    }
 }
 
 
@@ -105,7 +217,7 @@ function criarPerguntas(){
         </div>
         `
     }
-    MAIN.innerHTML = auxiliar + `<button class="finalizarPerg">Prosseguir para criar níveis</button>`;
+    MAIN.innerHTML = auxiliar + `<button class="finalizarPerg" onclick="passarNiveis()">Prosseguir para criar níveis</button>`;
 }
 
 
@@ -122,6 +234,7 @@ function verificaInformacoes(){
 
     if(aux && aux2 && aux3 && aux4){
         criarPerguntas();
+        
     }
     else{
         alert("Verifique suas respostas e preencha os dados corretamente!");
@@ -150,3 +263,7 @@ function telaInfoBasica(){
         </div>
     `
 }
+
+
+
+

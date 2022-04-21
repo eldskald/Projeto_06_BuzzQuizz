@@ -128,3 +128,25 @@ input::placeholder{
     width: 30%;
     min-height: 45px;
 }
+
+.pergExpandida{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.salvar{
+    width: 30%;
+
+    background-color: goldenrod;
+
+    color: white;
+    font-family: var(--script);
+    font-size: 18px;
+
+    border-radius: 15px;
+
+    margin-top: 15px;
+    margin-bottom: 18px;
+}
