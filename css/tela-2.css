@@ -132,6 +132,7 @@
     font-size: 18px;
     font-weight: 400;
     text-align: center;
+    word-break: break-word;
 
     transition: all 1s;
 }
@@ -141,7 +142,7 @@
 }
 
 .pergunta-container > div > figure > figcaption.errada {
-    color: red;
+    color: var(--wronganswer);
 }
 
 .pergunta-container > div > figure > figcaption.nao-revelada {

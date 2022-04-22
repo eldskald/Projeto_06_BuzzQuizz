@@ -1,13 +1,15 @@
 
-let perguntasAcertadas;
-let totalDePerguntas;
+let totalAcertos;
+let perguntasRespondidas;
+let totalPerguntas;
 
 function carregarTela2 (id) {
     limparMain();
     const quiz = pegarQuizPeloID(id);
     renderizarQuiz(quiz);
-    perguntasAcertadas = 0;
-    totalDePerguntas = quiz.questions.length;
+    totalAcertos = 0;
+    perguntasRespondidas = 0;
+    totalPerguntas = quiz.questions.length;
     window.scrollTo(0, 0);
     MAIN.scrollTo(0, 0);
 }
@@ -16,13 +18,13 @@ function carregarTela2 (id) {
 
 // Funções que lidam com renderização dos quizzes
 function renderizarQuiz (quiz) {
-    MAIN.innerHTML += renderizarTituloDoQuiz(quiz);
+    MAIN.innerHTML += htmlTituloDoQuiz(quiz);
     for (let i = 0; i < quiz.questions.length; i++) {
-        MAIN.innerHTML += renderizarPergunta(quiz.questions[i]);
+        MAIN.innerHTML += htmlPergunta(quiz.questions[i], i);
     }
 }
 
-function renderizarTituloDoQuiz (quiz) {
+function htmlTituloDoQuiz (quiz) {
     return `
         <header class="titulo-do-quiz">
             <img src=${quiz.image} />
@@ -31,15 +33,15 @@ function renderizarTituloDoQuiz (quiz) {
     `;
 }
 
-function renderizarPergunta (pergunta) {
+function htmlPergunta (pergunta, indice) {
     let respostasHTML = "";
     let arrRespostas = pergunta.answers;
     arrRespostas.sort(() => Math.random() - 0.5);
     for (let i = 0; i < arrRespostas.length; i++) {
-        respostasHTML += renderizarResposta(arrRespostas[i]);
+        respostasHTML += htmlResposta(arrRespostas[i]);
     }
     return `
-        <section class="pergunta-container">
+        <section class="pergunta-container" id="pergunta-${indice}">
             <header style="background-color: ${pergunta.color}">
                 ${pergunta.title}
             </header>
@@ -50,7 +52,7 @@ function renderizarPergunta (pergunta) {
     `;
 }
 
-function renderizarResposta (resposta) {
+function htmlResposta (resposta) {
     let classes;
     if (resposta.isCorrectAnswer) {
         classes = "certa";
@@ -72,26 +74,55 @@ function renderizarResposta (resposta) {
 
 
 // Funções que lidam com o comportamento das respostas
-function escolherResposta (nodo) {
-    const perguntaNodo = nodo.parentNode.parentNode.parentNode;
+function escolherResposta (imagemClicada) {
+    const perguntaNodo = imagemClicada.parentNode.parentNode.parentNode;
     if (perguntaNodo.classList.contains("respondida")) {
         return;
     }
-
     perguntaNodo.classList.add("respondida");
-    const respostas = perguntaNodo.querySelector("div").querySelectorAll("figure");
-    for (let i = 0; i < respostas.length; i++) {
-        revelarResposta(respostas[i]);
-    }
+    
+    revelarResposta(perguntaNodo);
+    lidarComAcertos(imagemClicada);
+    checarFim();
+}
 
-    const acertou = nodo.classList.contains("certa");
-    if (acertou) {
-        perguntasAcertadas++;
+function revelarResposta (pergunta) {
+    const opcoes = pergunta.querySelector("div").querySelectorAll("figure");
+    opcoes.forEach(function (opcao) {
+        opcao.querySelector("img").classList.remove("nao-revelada");
+        opcao.querySelector("figcaption").classList.remove("nao-revelada");
+    });
+    setTimeout(irParaProximaPergunta, 2000, pergunta);
+}
+
+function irParaProximaPergunta (perguntaAtual) {
+    const indice = Number(perguntaAtual.id.replace("pergunta-", ""));
+    proximaPergunta = document.getElementById("pergunta-" + (indice + 1));
+    if (proximaPergunta) {
+        if (window.matchMedia("(max-width: 1100px)").matches) {
+            proximaPergunta.scrollIntoView({behavior: "smooth"});
+        }
+        else {
+            const topCoord = posVerticalNaPagina(proximaPergunta) - 84;
+            window.scrollTo({left: 0, top: topCoord, behavior: "smooth"});
+        }
     }
 }
 
-function revelarResposta (nodo) {
-    nodo.querySelector("img").classList.remove("nao-revelada");
-    nodo.querySelector("figcaption").classList.remove("nao-revelada");
+function posVerticalNaPagina (elemento) {
+    return elemento.getBoundingClientRect().top + window.pageYOffset;
+}
+
+function lidarComAcertos (imagemResposta) {
+    perguntasRespondidas++;
+    if (imagemResposta.classList.contains("certa")) {
+        totalAcertos++;
+    }
+}
+
+function checarFim () {
+    if (perguntasRespondidas < totalPerguntas) {
+        return;
+    }
 }
 // Funções que lidam com o comportamento das respostas
