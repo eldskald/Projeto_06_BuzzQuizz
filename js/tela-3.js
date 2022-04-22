@@ -5,7 +5,7 @@ let NPerg;
 let NNiveis;
 let verificadorNivel = 0;
 // Objeto que recebe as informações do Quizz
-let quizz=[];
+let quizz={};
 let questions=[];
 let levels=[];
 // Objeto que recebe as informações do Quizz
@@ -262,10 +262,17 @@ function VDescricao(descricao){
 let contador2 = 0;
 
 function finalizarQuizz(){
-    if(levels.length == contador2 && verificadorNivel == 1){
-        console.log("Ta quase so falta saber receber e tratar as key do servidor");
+    if(NNiveis == contador2 && verificadorNivel == 1){
+        quizz = {
+            title: titulo,
+            image: Url,
+            questions: questions,
+            levels: levels
+        }
         console.log(quizz);
-        //axios.post()
+        const quizzCriado = axios.post(API_URL, quizz)
+        quizzCriado.then(salvarID);
+        quizzCriado.catch(() => alert("Deu ruim n salvou"))
     }
     else{
         if(verificadorNivel != 1){
@@ -306,12 +313,6 @@ function verifNiv(elemento, numero){
                 <span class="perg">${txt}</span>
                 <span><ion-icon name="checkmark-outline"></ion-icon></span>
         `
-        quizz = [{
-            title: titulo,
-            image: Url,
-            questions: questions,
-            levels: levels
-        }]
     }else{
         alert("Revise suas resposta e preencha os campos corretamente.")
     }
@@ -361,7 +362,7 @@ function montaNiveis(){
 }
 
 function passarNiveis(){
-    if(questions.length == contador){
+    if(NPerg == contador){
         limparMain();
         montaNiveis();
     }

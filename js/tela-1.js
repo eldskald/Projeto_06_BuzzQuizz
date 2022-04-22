@@ -2,13 +2,33 @@
 function carregarTela1 () {
     limparMain();
     botaoCriarQuizz();
-    carregarQuizzes();
     resetarScroll();
 }
 
+function foicriada(quizzes){
+    const aux = JSON.parse(localStorage.getItem("IDS"));
+    for(let i=0;i<aux.length;i++){
+        if(quizzes.id == aux[i]){
+            console.log("entrou")
+            return true;
+        }
+    }
+    return false;
+}
+
+function CarregarUser(elemento){
+    MAIN.innerHTML=`
+                <div class="user">
+                <div class="head"><header>Seus Quizzes</header>  <ion-icon name="add-circle" onclick="carregaTela3()"></ion-icon> </div>
+                <div>${elemento}</div>
+                </div>
+            `
+            carregarQuizzes();
+}
+
 function botaoCriarQuizz(){
-    const aux = pegarQuizzesCriados();
-    if(!aux){
+    const aux = JSON.parse(localStorage.getItem("IDS"));
+    if(aux === null){
         MAIN.innerHTML = `
             <div class = "CriarQuizzouQuizzCriados">
                 <p>Você não criou nenhum</br> quizz ainda :(</p>
@@ -19,20 +39,44 @@ function botaoCriarQuizz(){
         `;
     }
     else{
-        const quizzes = resposta.data.filter((quiz) => possuiSalvo(quiz.id));
-        renderizarQuizzes(quizzes);
+        const promessa = axios.get(API_URL);
+        promessa.then(function (resposta) {
+            arrayQuizzes = resposta.data;
+            const quizzes = arrayQuizzes.filter(foicriada);
+            console.log(quizzes)
+            const qUser = renderizarQuizzesUsuario(quizzes);
+            CarregarUser(qUser);
+        });
     }
 }
 
+function renderizarQuizzesUsuario (quizzes) {
+    let quizzesHTML = "";
+    console.log(quizzes)
+    for (let i = 0; i < quizzes.length; i++) {
+        quizzesHTML += gerarQuizHTML(quizzes[i]);
+    }
+    return quizzesHTML;
+}
 
-
+//Nova função para filtrar os Quizzes q NÃO foram feitos pelo usuario.
+function NfoiFeito(quizzes){
+    const aux = JSON.parse(localStorage.getItem("IDS"));
+    for(let i=0;i<aux.length;i++){
+        if(quizzes.id != aux[i]){
+            console.log("entrou")
+            return true;
+        }
+    }
+    return false;
+}
 // Funções relacionadas a carregar os quizzes da seção de todos os quizzes.
 function carregarQuizzes () {
     const promessa = axios.get(API_URL);
 
     promessa.then(function (resposta) {
         arrayQuizzes = resposta.data;
-        const quizzes = arrayQuizzes.filter((quiz) => !possuiSalvo(quiz.id));
+        const quizzes = arrayQuizzes.filter(NfoiFeito);
         renderizarQuizzes(quizzes);
     });
 }
