@@ -2,16 +2,16 @@
 let totalAcertos;
 let perguntasRespondidas;
 let totalPerguntas;
+let quizEscolhido;
 
 function carregarTela2 (id) {
     limparMain();
-    const quiz = pegarQuizPeloID(id);
-    renderizarQuiz(quiz);
+    quizEscolhido = pegarQuizPeloID(id);
+    renderizarQuiz(quizEscolhido);
     totalAcertos = 0;
     perguntasRespondidas = 0;
-    totalPerguntas = quiz.questions.length;
-    window.scrollTo(0, 0);
-    MAIN.scrollTo(0, 0);
+    totalPerguntas = quizEscolhido.questions.length;
+    resetarScroll();
 }
 
 
@@ -121,8 +121,63 @@ function lidarComAcertos (imagemResposta) {
 }
 
 function checarFim () {
-    if (perguntasRespondidas < totalPerguntas) {
-        return;
+    if (perguntasRespondidas === totalPerguntas) {
+        revelarResultados();
     }
 }
 // Funções que lidam com o comportamento das respostas
+
+
+
+// Funções que lidam com o resultado
+function revelarResultados () {
+    const pontuacao = Math.floor((totalAcertos * 100) / totalPerguntas);
+    const nivel = pegarNivelObtido(pontuacao);
+    renderizarResultados(nivel, pontuacao);
+    setTimeout(scrollarParaResultados, 2000);
+}
+
+function pegarNivelObtido (pontuacao) {
+    let niveisEmOrdem = quizEscolhido.levels.map((nivel, indice) => ({id: indice, minValue: nivel.minValue}));
+    niveisEmOrdem.sort((a, b) => a.minValue - b.minValue);
+    for (let i = niveisEmOrdem.length - 1; i >= 0; i--) {
+        if (pontuacao >= niveisEmOrdem[i].minValue) {
+            return quizEscolhido.levels[niveisEmOrdem[i].id];
+        }
+    }
+}
+
+function renderizarResultados (nivel, pontuacao) {
+    MAIN.innerHTML += `
+        <section class="resultados-container">
+            <header>${pontuacao}% de acerto: ${nivel.title}</header>
+            <div>
+                <img src=${nivel.image} />
+                <div>${nivel.text}</div>
+            </div>
+        </section>
+
+        <div class="botao-refazer" onclick="carregarTela2(${quizEscolhido.id})">
+            Refazer quiz
+        </div>
+
+        <div class="botao-retornar" onclick="window.location.reload()">
+            Voltar para o home
+        </div>
+    `;
+}
+
+function scrollarParaResultados () {
+    // const botaoRetornar = MAIN.querySelector(".botao-retornar");
+    // botaoRetornar.scrollIntoView({behavior: "smooth"});
+
+    const resultados = MAIN.querySelector(".resultados-container");
+    if (window.matchMedia("(max-width: 1100px)").matches) {
+        resultados.scrollIntoView({behavior: "smooth"});
+    }
+    else {
+        const topCoord = posVerticalNaPagina(resultados) - 84;
+        window.scrollTo({left: 0, top: topCoord, behavior: "smooth"});
+    }
+}
+// Funções que lidam com o resultado

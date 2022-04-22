@@ -66,7 +66,7 @@
     justify-content: center;
     align-items: center;
 
-    font-family: var(--display);
+    font-family: var(--script);
     font-size: 24px;
     font-weight: 500;
     text-align: center;
@@ -104,7 +104,6 @@
 
     object-fit: cover;
 
-    cursor: pointer;
     transition: filter 0.5s;
 }
 
@@ -118,6 +117,7 @@
 
 .pergunta-container > div > figure > img.nao-revelada {
     filter: brightness(80%);
+    cursor: pointer;
 }
 
 .pergunta-container > div > figure > img.nao-revelada:hover {
@@ -128,7 +128,7 @@
     width: 100%;
     margin-top: 8px;
 
-    font-family: var(--display);
+    font-family: var(--script);
     font-size: 18px;
     font-weight: 400;
     text-align: center;
@@ -149,6 +149,102 @@
     color: var(--fontcolor);
 }
 /* Perguntas */
+
+
+
+/* Revelar resultados */
+.resultados-container {
+    width: 1100px;
+    margin: 16px 0px;
+
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border: 3px solid var(--subcolor);
+    border-radius: 8px;
+}
+
+.resultados-container > header {
+    width: 100%;
+
+    padding: 24px 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--maincolor);
+
+    font-family: var(--script);
+    font-size: 24px;
+    font-weight: 500;
+    text-align: center;
+    color: var(--fontcolor);
+    text-shadow: 2px 2px 4px black,
+                 -2px 2px 4px black,
+                 2px -2px 4px black,
+                 -2px -2px 4px black;
+    word-break: break-word;
+}
+
+.resultados-container > div {
+    width: 100%;
+    margin-top: 16px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.resultados-container > div > img {
+    width: 50%;
+    object-fit: cover;
+}
+
+.resultados-container > div > div {
+    width: 50%;
+
+    padding: 32px;
+
+    font-family: var(--script);
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--fontcolor);
+    word-break: break-word;
+}
+
+.botao-refazer {
+    margin: 32px auto 32px auto;
+
+    padding: 16px 32px 16px 32px;
+    
+    cursor: pointer;
+    background-color: var(--maincolor);
+    border: 3px solid var(--maincolor);
+    border-radius: 100px;
+
+    font-family: var(--script);
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--fontcolor);
+}
+
+.botao-retornar {
+    margin: 32px auto 64px auto;
+
+    padding: 16px 32px 16px 32px;
+    
+    cursor: pointer;
+    border: 3px solid var(--subcolor);
+    border-radius: 100px;
+
+    font-family: var(--script);
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--subcolor);
+}
+/* Revelar resultados */
 
 
 
@@ -178,5 +274,27 @@
 
     .pergunta-container > div > figure > img.nao-revelada {
         filter: brightness(100%);
+    }
+
+    .resultados-container {
+        width: 100%;
+
+        border-top: 3px solid var(--subcolor);
+        border-bottom: 3px solid var(--subcolor);
+        border-left: 0px none transparent;
+        border-right: 0px none transparent;
+        border-radius: 0px;
+    }
+
+    .resultados-container > div {
+        flex-direction: column;
+    }
+
+    .resultados-container > div > img {
+        width: 100%;
+    }
+    
+    .resultados-container > div > div {
+        width: 100%;
     }
 }

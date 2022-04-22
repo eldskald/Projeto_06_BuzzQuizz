@@ -3,6 +3,7 @@ function carregarTela1 () {
     limparMain();
     botaoCriarQuizz();
     carregarQuizzes();
+    resetarScroll();
 }
 
 function botaoCriarQuizz(){
@@ -32,14 +33,14 @@ function carregarQuizzes () {
     promessa.then(function (resposta) {
         arrayQuizzes = resposta.data;
         const quizzes = arrayQuizzes.filter((quiz) => !possuiSalvo(quiz.id));
-        renderizarQuizzes();
+        renderizarQuizzes(quizzes);
     });
 }
 
-function renderizarQuizzes () {
+function renderizarQuizzes (quizzes) {
     let quizzesHTML = "";
-    for (let i = 0; i < arrayQuizzes.length; i++) {
-        quizzesHTML += gerarQuizHTML(arrayQuizzes[i]);
+    for (let i = 0; i < quizzes.length; i++) {
+        quizzesHTML += gerarQuizHTML(quizzes[i]);
     }
     MAIN.innerHTML += `
         <section class="lista-de-quizzes">

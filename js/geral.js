@@ -11,6 +11,11 @@ let arrayQuizzes = [];
 
 const limparMain = () => { MAIN.innerHTML = ""; };
 
+function resetarScroll () {
+    window.scrollTo(0, 0);
+    MAIN.scrollTo(0, 0);
+}
+
 function pegarQuizPeloID (id) {
     for (let i = 0; i < arrayQuizzes.length; i++) {
         const quiz = arrayQuizzes[i];
