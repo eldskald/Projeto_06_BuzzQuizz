@@ -3,10 +3,11 @@ let titulo;
 let Url;
 let NPerg;
 let NNiveis;
-
+let verificadorNivel = 0;
 // Objeto que recebe as informações do Quizz
 let quizz=[];
 let questions=[];
+let levels=[];
 // Objeto que recebe as informações do Quizz
 
 
@@ -110,34 +111,79 @@ function verifResp(elemento,numero){
    
     
    if(aux && aux2 && aux3 && aux4 && aux5 && aux6 && aux7){
-        questions[contador]= {
+        if(RINcorreta2=="" && RINcorreta3==""){
+            questions[contador]= {
 
-			title: TXTP,
-			color: Cor,
-			answers: [
-				{
-					text: RCorreta,
-					image: URLCorreta,
-					isCorrectAnswer: true
-				},
-				{
-					text: RINcorreta1,
-					image: UrlIncorreta1,
-					isCorrectAnswer: false
-				},
-                {
-					text: RINcorreta2,
-					image: UrlIncorreta2,
-					isCorrectAnswer: false
-				},
-                {
-					text: RINcorreta3,
-					image: UrlIncorreta3,
-					isCorrectAnswer: false
-				},
+                title: TXTP,
+                color: Cor,
+                answers: [
+                    {
+                        text: RCorreta,
+                        image: URLCorreta,
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: RINcorreta1,
+                        image: UrlIncorreta1,
+                        isCorrectAnswer: false
+                    }
+                ]
+            }
+        }else if(RINcorreta2!="" && RINcorreta3==""){
+            questions[contador]= {
 
-			]
-		}
+                title: TXTP,
+                color: Cor,
+                answers: [
+                    {
+                        text: RCorreta,
+                        image: URLCorreta,
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: RINcorreta1,
+                        image: UrlIncorreta1,
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: RINcorreta2,
+                        image: UrlIncorreta2,
+                        isCorrectAnswer: false
+                    }
+                ]
+            }
+        }
+        else{
+            questions[contador]= {
+
+                title: TXTP,
+                color: Cor,
+                answers: [
+                    {
+                        text: RCorreta,
+                        image: URLCorreta,
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: RINcorreta1,
+                        image: UrlIncorreta1,
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: RINcorreta2,
+                        image: UrlIncorreta2,
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: RINcorreta3,
+                        image: UrlIncorreta3,
+                        isCorrectAnswer: false
+                    },
+    
+                ]
+            }
+        }
+       
         contador++;
         pai.innerHTML = `
                 <span class="perg">${txt}</span>
@@ -147,22 +193,13 @@ function verifResp(elemento,numero){
    else{
        alert("Revise suas resposta e preencha os campos corretamente.");
    }
-   
-   
-    quizz = [{
-        title: titulo,
-        image: Url,
-        questions: questions
-    }]
-    console.log(quizz); 
 }
 
 
-function montaPost(elemento){
+function montaPerg(elemento){
     let aux = elemento.parentNode;
     aux.classList.add("expandida");
     const nome = aux.innerText;
-    
     const num = Number(nome.replace("Pergunta ",""));
     aux.innerHTML = `
     
@@ -192,11 +229,141 @@ function montaPost(elemento){
     `
 }
 
-function passarNiveis(){
-    if(questions.length == (contador)){
-        limparMain();
-        
+function VTituloN(titulo){
+    if(titulo.length >= 10){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
 
+function VPorcentagem(pct){
+    if(pct>=0 && pct<=100){
+        if(pct == 0){
+            verificadorNivel++;
+        }
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+function VDescricao(descricao){
+    if(descricao.length >= 30){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+let contador2 = 0;
+
+function finalizarQuizz(){
+    if(levels.length == contador2 && verificadorNivel == 1){
+        console.log("Ta quase so falta saber receber e tratar as key do servidor");
+        console.log(quizz);
+        //axios.post()
+    }
+    else{
+        if(verificadorNivel != 1){
+            alert("Estão ocorrendo erros nas suas porcentagens minimas, use uma e somente uma com valor igual a zero!");
+            contador2=0;
+            verificadorNivel=0;
+            limparMain();
+            montaNiveis();
+        }
+        alert("deu ruim")
+
+    }
+}
+
+function verifNiv(elemento, numero){
+    const pai = elemento.parentNode;
+    const txt = document.querySelector(".marker").innerHTML;
+    
+    const TNivel = document.querySelector(`.TituloNivel-${numero}`).value;
+    const Porcentagem = Number(document.querySelector(`.Porcentagem-${numero}`).value);
+    const URLNivel = document.querySelector(`.UrlNivel-${numero}`).value;
+    const DescriçaoNivel = document.querySelector(`.DescricaoNivel-${numero}`).value;
+
+    const aux = VTituloN(TNivel);
+    const aux2 = VPorcentagem(Porcentagem);
+    const aux3 = verifUrl(URLNivel);
+    const aux4 = VDescricao(DescriçaoNivel);
+
+    if(aux && aux2 && aux3 && aux4){
+        levels[contador2]={
+			title: TNivel,
+			image: URLNivel,
+			text: DescriçaoNivel,
+			minValue: Porcentagem
+		}
+        contador2++;
+        pai.innerHTML = `
+                <span class="perg">${txt}</span>
+                <span><ion-icon name="checkmark-outline"></ion-icon></span>
+        `
+        quizz = [{
+            title: titulo,
+            image: Url,
+            questions: questions,
+            levels: levels
+        }]
+    }else{
+        alert("Revise suas resposta e preencha os campos corretamente.")
+    }
+    
+
+}
+
+function expandeNivel(elemento){
+    let aux = elemento.parentNode;
+    aux.classList.add("expandida");
+    const nome = aux.innerText;
+    const num = Number(nome.replace("Nível ",""));
+
+    aux.innerHTML = `
+    
+        <div class="pergExpandida">
+            <p class="perg marker">${nome}</p>
+
+            <input class="TituloNivel-${num}" type="text" placeholder="Titulo do nível"></input>
+
+            <input class="Porcentagem-${num}" type="text" placeholder="% de acerto mínima"></input>
+
+            <input class="UrlNivel-${num}" type="text" placeholder="URL da imagem do nível"></input>
+
+            <input class="DescricaoNivel-${num}" type="text" placeholder="Descrição do nível"></input>
+
+            <button class="salvar" onclick="verifNiv(this,${num})">Salvar Respostas!</button>
+
+        </div>
+    
+    `
+}
+
+function montaNiveis(){
+    let auxiliar = `<header class="HPerg"><p class="perg">Agora, decida os níveis</p></header>`; 
+    for(let i = 1; i <= NNiveis; i++){
+        auxiliar += `
+        <div class="container">
+        <div class="perguntas">
+            <p class="perg">Nível ${i}</p>
+            <span onclick="expandeNivel(this)"><ion-icon name="create-outline"></ion-icon></span>
+        </div>
+        </div>
+        `
+    }
+    MAIN.innerHTML = auxiliar + `<button class="finalizarPerg" onclick="finalizarQuizz()">Finalizar Quizz</button>`;
+}
+
+function passarNiveis(){
+    if(questions.length == contador){
+        limparMain();
+        montaNiveis();
     }
     else{
         alert("Você não prencheu todos os campos necessários, verifique suas respostas e tente novamente!")
@@ -212,7 +379,7 @@ function criarPerguntas(){
         <div class="container">
         <div class="perguntas">
             <p class="perg">Pergunta ${i}</p>
-            <span onclick="montaPost(this)"><ion-icon name="create-outline"></ion-icon></span>
+            <span onclick="montaPerg(this)"><ion-icon name="create-outline"></ion-icon></span>
         </div>
         </div>
         `
