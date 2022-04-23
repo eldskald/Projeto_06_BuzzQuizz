@@ -6,12 +6,16 @@ let quizEscolhido;
 
 function carregarTela2 (id) {
     limparMain();
-    quizEscolhido = pegarQuizPeloID(id);
-    renderizarQuiz(quizEscolhido);
-    totalAcertos = 0;
-    perguntasRespondidas = 0;
-    totalPerguntas = quizEscolhido.questions.length;
     resetarScroll();
+    const promessa = axios.get(API_URL + `/${id}`);
+
+    promessa.then(function (resposta) {
+        quizEscolhido = resposta.data;
+        renderizarQuiz(quizEscolhido);
+        totalAcertos = 0;
+        perguntasRespondidas = 0;
+        totalPerguntas = quizEscolhido.questions.length;
+    });
 }
 
 
