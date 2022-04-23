@@ -42,7 +42,7 @@ function botaoCriarQuizz(){
 function CarregarUser(elemento){
     MAIN.innerHTML += `
                 <div class="user">
-                <div class="head"><header>Seus Quizzes</header>  <ion-icon name="add-circle" onclick="carregaTela3()"></ion-icon> </div>
+                <div class="head"><header>Seus Quizzes</header>  <ion-icon class="addNewQuizz" name="add-circle" onclick="carregaTela3()"></ion-icon> </div>
                 <div>${elemento}</div>
                 </div>
             `;
