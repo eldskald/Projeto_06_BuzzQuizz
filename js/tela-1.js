@@ -76,7 +76,7 @@ function criadoPeloUsuario(quizzes){
 
 // Funções relacionadas a carregar os quizzes da seção de todos os quizzes.
 function carregarQuizzesDosOutros () {
-    const quizzes = arrayQuizzes.filter(() => !criadoPeloUsuario());
+    const quizzes = arrayQuizzes.filter((quiz) => !criadoPeloUsuario(quiz));
     renderizarQuizzes(quizzes);
 }
 
