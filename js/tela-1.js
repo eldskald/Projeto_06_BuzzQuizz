@@ -8,7 +8,7 @@ function carregarTela1 () {
     const promessa = axios.get(API_URL);
     promessa.then(function (resposta) {
         arrayQuizzes = resposta.data;
-        botaoCriarQuizz();
+        carregarQuizzesDoUsuario();
         carregarQuizzesDosOutros();
     });
 }
@@ -57,14 +57,14 @@ function renderizarQuizzesUsuario (quizzes) {
     return quizzesHTML;
 }
 
-function criadoPeloUsuario(quizzes){
+function criadoPeloUsuario (quiz) {
     const aux = JSON.parse(localStorage.getItem("IDS"));
     if (aux === null) {
         return false;
     }
 
     for (let i = 0; i < aux.length; i++) {
-        if (quizzes.id == aux[i].id) {
+        if (quiz.id == aux[i].id) {
             return true;
         }
     }
@@ -76,7 +76,7 @@ function criadoPeloUsuario(quizzes){
 
 // Funções relacionadas a carregar os quizzes da seção de todos os quizzes.
 function carregarQuizzesDosOutros () {
-    const quizzes = arrayQuizzes.filter(() => !criadoPeloUsuario());
+    const quizzes = arrayQuizzes.filter((quiz) => !criadoPeloUsuario(quiz));
     renderizarQuizzes(quizzes);
 }
 
