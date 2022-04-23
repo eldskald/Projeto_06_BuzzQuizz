@@ -13,12 +13,3 @@ function resetarScroll () {
     MAIN.scrollTo(0, 0);
 }
 
-// function pegarQuizPeloID (id) {
-//     for (let i = 0; i < arrayQuizzes.length; i++) {
-//         const quiz = arrayQuizzes[i];
-//         if (quiz.id === id) {
-//             return quiz;
-//         }
-//     }
-//     return null;
-// }
