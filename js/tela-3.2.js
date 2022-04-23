@@ -27,14 +27,15 @@ function salvarID(elemento){
     sucesso(elemento);
     console.log(elemento);
     const Id = elemento.data.id;
+    const chaveSecreta = elemento.headers["secret-key"];
     let IdQuizzSalvos = JSON.parse(localStorage.getItem("IDS"))
     if(IdQuizzSalvos == null){
-        const NID = [Id];
+        const NID = [{id: Id, chave: chaveSecreta}];
         const NIDString = JSON.stringify(NID);
         localStorage.setItem("IDS", NIDString);
     }
     else{
-        IdQuizzSalvos.push(Id);
+        IdQuizzSalvos.push({id: Id, chave: chaveSecreta});
         const aux = JSON.stringify(IdQuizzSalvos);
         localStorage.setItem("IDS", aux);
     }

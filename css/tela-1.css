@@ -53,7 +53,7 @@
     color: var(--fontcolor);
 }
 
-.user ion-icon{
+.user > ion-icon{
     font-size: 40px;
     color: var(--maincolor);
 
@@ -117,6 +117,27 @@
     font-weight: normal;
     color: var(--fontcolor);
     word-break: break-word;
+}
+
+.user > div > figure > div {
+    position: absolute;
+    top: 8px;
+    right: 0px;
+    width: 44px;
+    height: 88px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--maincolor);
+    border-radius: 10px 0px 0px 10px;
+}
+
+.user > div > figure > div > ion-icon {
+    font-size: 36px;
+    color: var(--fontcolor);
 }
 
 /*Lista de quizz usuario*/
