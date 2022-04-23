@@ -14,40 +14,46 @@
     margin-top: 50px;
 
     font-size: 23px;
-    color: white;
+    color: var(--fontcolor);
     font-family: var(--script);
     font-weight: bold;
 }
 
 .quadroRespostas{
-    width: 55%;
+    width: 1100px;
+    margin-top: 25px;
 
-    background-color: var(--maincolor);
-
+    padding: 16px 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    margin-top: 25px;
-
+    background-color: var(--maincolor);
     border-radius: 9px;
 }
 
 input{
     width: 90%;
     height: 45px;
-
     margin: 10px;
 
-    border-radius: 5px;
+    padding-left: 32px;
 
-    padding-left: 10px;
+    border: 1px solid var(--maincolor);
+    border-radius: 50px;
+    background-color: var(--bgcolor);
+    outline: none;
+
+    font-family: var(--script);
+    font-size: 14px;
+    color: var(--fontcolor);
 }
 
 input::placeholder{
     font-family: var(--script);
     font-size: 14px;
-    color: #BABABA;
+    color: var(--fontcolor);
+    opacity: 0.5;
 }
 
 .container{
@@ -59,24 +65,26 @@ input::placeholder{
 .prosseguir{
     margin-top: 80px;
     margin-bottom: 50px;
-
     width: 40%;
     height: 40px;
 
     background-color: var(--maincolor);
-
-    border-radius: 15px;
+    border: 1px solid var(--maincolor);
+    border-radius: 50px;
+    cursor: pointer;
 
     font-family: var(--script);
     font-size: 14px;
     font-weight: 700;
+    color: var(--fontcolor);
 }
 
 .perguntas{
-    width: 55%;
+    width: 1100px;
     min-height: 75px;
 
     background-color: var(--maincolor);
+    border-radius: 9px;
 
     margin-top: 30px;
 
@@ -89,7 +97,7 @@ input::placeholder{
 }
 
 .perg{
-    color: white;
+    color: var(--fontcolor);
     font-family: var(--script);
     font-size: 18px;
 }
@@ -100,6 +108,7 @@ input::placeholder{
 
 .perguntas ion-icon{
     font-size: 25px;
+    color: var(--fontcolor);
 }
 
 .perguntas.expandida{
@@ -107,7 +116,7 @@ input::placeholder{
 }
 
 .expandida .perg{
-    color: white;
+    color: var(--fontcolor);
     font-family: var(--script);
     font-size: 18px;
     margin-top: 18px;
@@ -117,15 +126,15 @@ input::placeholder{
     margin-top: 80px;
     margin-bottom: 30px;
 
-    color: white;
+    color: var(--fontcolor);
     font-family: var(--script);
     font-size: 18px;
 
     background-color: var(--maincolor);
+    border-radius: 50px;
+    border: 0px solid transparent;
 
-    border-radius: 10px;
-
-    width: 30%;
+    padding: 16px 32px;
     min-height: 45px;
 }
 
@@ -141,10 +150,11 @@ input::placeholder{
 
     background-color: goldenrod;
 
-    color: white;
+    color: var(--bgcolor);
     font-family: var(--script);
     font-size: 18px;
 
+    border: 0px solid transparent;
     border-radius: 15px;
 
     margin-top: 15px;
@@ -158,7 +168,7 @@ input::placeholder{
 }
 
 .sucesso header{
-    color: white;
+    color: var(--fontcolor);
     font-family: var(--script);
     font-size: 20px;
     
@@ -219,4 +229,13 @@ input::placeholder{
     border: 0;
     color: var(--maincolor);
     margin-top: 0;
+}
+
+@media (max-width: 1100px) {
+
+    .quadroRespostas, .perguntas{
+        width: 100%;
+    
+        border-radius: 0px;
+    }
 }
