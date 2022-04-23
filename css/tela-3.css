@@ -146,8 +146,6 @@ input::placeholder{
 }
 
 .salvar{
-    width: 30%;
-
     background-color: goldenrod;
 
     color: var(--bgcolor);

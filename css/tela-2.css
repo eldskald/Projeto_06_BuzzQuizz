@@ -108,20 +108,20 @@
 }
 
 .pergunta-container > div > figure > img.certa {
-    filter: brightness(120%);
+    filter: var(--lit);
 }
 
 .pergunta-container > div > figure > img.errada {
-    filter: brightness(40%);
+    filter: var(--darkened);
 }
 
 .pergunta-container > div > figure > img.nao-revelada {
-    filter: brightness(80%);
+    filter: var(--unlit);
     cursor: pointer;
 }
 
 .pergunta-container > div > figure > img.nao-revelada:hover {
-    filter: brightness(120%);
+    filter: var(--lit);
 }
 
 .pergunta-container > div > figure > figcaption {
