@@ -147,13 +147,14 @@ input::placeholder{
 
 .salvar{
     background-color: goldenrod;
+    padding: 8px 24px;
 
     color: var(--bgcolor);
     font-family: var(--script);
     font-size: 18px;
 
     border: 0px solid transparent;
-    border-radius: 15px;
+    border-radius: 50px;
 
     margin-top: 15px;
     margin-bottom: 18px;
