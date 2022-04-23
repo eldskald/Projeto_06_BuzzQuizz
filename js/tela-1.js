@@ -8,7 +8,7 @@ function carregarTela1 () {
     const promessa = axios.get(API_URL);
     promessa.then(function (resposta) {
         arrayQuizzes = resposta.data;
-        botaoCriarQuizz();
+        carregarQuizzesDoUsuario();
         carregarQuizzesDosOutros();
     });
 }
