@@ -148,7 +148,7 @@ function gerarQuizHTML (quiz) {
 
 // Funções ligadas a edição e remoção de quizzes (bônus)
 function editarQuizz (id) {
-    alert("editar" + id);
+    carregaTela3(id);
 }
 
 function deletarQuizz (id) {

@@ -10,12 +10,25 @@ let questions=[];
 let levels=[];
 // Objeto que recebe as informações do Quizz
 
+// Para a edição de um quiz
+let quizOriginal;
+
 
 //Essa funçao faz com que a tela 1 saia da tela e ainda vai adicionar a tela 3
 
-function carregaTela3(){
+function carregaTela3(editarID){
     limparMain();
-    telaInfoBasica();
+    quizOriginal = null;
+    if (editarID) {
+        const promessa = axios.get(API_URL + `/${editarID}`);
+        promessa.then(function (resposta) {
+            quizOriginal = resposta.data;
+            telaInfoBasica();
+        });
+    }
+    else {
+        telaInfoBasica();
+    }
 } 
 
 function verifTitulo(titulo){
@@ -227,6 +240,10 @@ function montaPerg(elemento){
         </div>
     
     `
+
+    if (quizOriginal) {
+        preencherPergunta(num);
+    }
 }
 
 function VTituloN(titulo){
@@ -270,9 +287,23 @@ function finalizarQuizz(){
             levels: levels
         }
         console.log(quizz);
-        const quizzCriado = axios.post(API_URL, quizz)
-        quizzCriado.then(salvarID);
-        quizzCriado.catch(() => alert("Deu ruim n salvou"))
+
+        if (quizOriginal) {
+            const quizzEditado = axios({
+                method: "PUT",
+                headers: { "secret-key": pegarChaveSecreta() },
+                data: quizz,
+                url: API_URL + `/${quizOriginal.id}`
+            });
+            quizzEditado.then(salvarID);
+            quizzEditado.catch(() => alert("Deu ruim n salvou"));
+        }
+        else {
+            const quizzCriado = axios.post(API_URL, quizz);
+            quizzCriado.then(salvarID);
+            quizzCriado.catch(() => alert("Deu ruim n salvou"));
+        }
+        
     }
     else{
         if(verificadorNivel != 1){
@@ -343,7 +374,11 @@ function expandeNivel(elemento){
 
         </div>
     
-    `
+    `;
+
+    if (quizOriginal) {
+        preencherNivel(num);
+    }
 }
 
 function montaNiveis(){
@@ -429,9 +464,56 @@ function telaInfoBasica(){
                 <p>Prosseguir para criar perguntas</p>
             </button>
         </div>
-    `
+    `;
+
+    if (quizOriginal) {
+        preencherInfoBasica();
+    }
 }
 
 
 
+// Funções pra lidar com edição de um quizz
+function preencherInfoBasica () {
+    MAIN.querySelector(".title").value = quizOriginal.title;
+    MAIN.querySelector(".urlIMG").value = quizOriginal.image;
+    MAIN.querySelector(".NPerguntas").value = quizOriginal.questions.length;
+    MAIN.querySelector(".NNiveis").value = quizOriginal.levels.length;
+}
 
+function preencherPergunta (pergNum) {
+    MAIN.querySelector(`.TXTPerg-${pergNum}`).value = quizOriginal.questions[pergNum - 1].title;
+    MAIN.querySelector(`.CorPerg-${pergNum}`).value = quizOriginal.questions[pergNum - 1].color;
+
+    MAIN.querySelector(`.RespCorreta-${pergNum}`).value = quizOriginal.questions[pergNum - 1].answers[0].text;
+    MAIN.querySelector(`.IMGCorreta-${pergNum}`).value = quizOriginal.questions[pergNum - 1].answers[0].image;
+
+    MAIN.querySelector(`.RespIncorreta1-${pergNum}`).value = quizOriginal.questions[pergNum - 1].answers[1].text;
+    MAIN.querySelector(`.IMGIncorreta1-${pergNum}`).value = quizOriginal.questions[pergNum - 1].answers[1].image;
+
+    MAIN.querySelector(`.RespIncorreta2-${pergNum}`).value = quizOriginal.questions[pergNum - 1].answers[2].text;
+    MAIN.querySelector(`.IMGIncorreta2-${pergNum}`).value = quizOriginal.questions[pergNum - 1].answers[2].image;
+
+    MAIN.querySelector(`.RespIncorreta3-${pergNum}`).value = quizOriginal.questions[pergNum - 1].answers[3].text;
+    MAIN.querySelector(`.IMGIncorreta3-${pergNum}`).value = quizOriginal.questions[pergNum - 1].answers[3].image;
+    
+}
+
+function preencherNivel (nivNum) {
+    MAIN.querySelector(`.TituloNivel-${nivNum}`).value = quizOriginal.levels[nivNum - 1].title;
+    MAIN.querySelector(`.Porcentagem-${nivNum}`).value = quizOriginal.levels[nivNum - 1].minValue;
+    MAIN.querySelector(`.UrlNivel-${nivNum}`).value = quizOriginal.levels[nivNum - 1].image;
+    MAIN.querySelector(`.DescricaoNivel-${nivNum}`).value = quizOriginal.levels[nivNum - 1].text;
+}
+
+function pegarChaveSecreta () {
+    const aux = JSON.parse(localStorage.getItem("IDS"));
+    let chave;
+    for (let i = 0; i < aux.length; i++) {
+        if (aux[i].id === quizOriginal.id) {
+            chave = aux[i].chave;
+        }
+    }
+    return chave;
+} 
+// Funções pra lidar com edição de um quizz

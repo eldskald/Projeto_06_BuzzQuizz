@@ -155,6 +155,7 @@
     font-size: 28px;
     color: var(--fontcolor);
     transition: all 200ms;
+    cursor: pointer;
 }
 
 .user > div > div > div > div > ion-icon:hover {
