@@ -28,7 +28,7 @@ function carregarQuizzesDoUsuario () {
     }
 }
 
-function botaoCriarQuizz(){
+function botaoCriarQuizz() {
     MAIN.innerHTML = `
         <div class = "CriarQuizzouQuizzCriados">
             <p>Você não criou nenhum</br> quizz ainda :(</p>
@@ -39,13 +39,33 @@ function botaoCriarQuizz(){
     `;
 }
 
-function CarregarUser(elemento){
+function CarregarUser (elemento) {
     MAIN.innerHTML += `
-                <div class="user">
-                <div class="head"><header>Seus Quizzes</header>  <ion-icon class="addNewQuizz" name="add-circle" onclick="carregaTela3()"></ion-icon> </div>
-                <div>${elemento}</div>
-                </div>
-            `;
+        <div class="user">
+            <div class="head">
+                <header>Seus Quizzes</header>
+                <ion-icon class="addNewQuizz" name="add-circle" onclick="carregaTela3()"></ion-icon>
+            </div>
+        <div>${elemento}</div>
+        </div>
+    `;
+}
+
+function gerarQuizUsuarioHTML (quiz) {
+    return `
+        <div>
+            <figure onclick="carregarTela2(${quiz.id})">
+                <img src=${quiz.image} />
+                <figcaption>
+                    ${quiz.title}
+                </figcaption>
+            </figure>
+            <div>
+                <div><ion-icon name="create-outline" onclick="editarQuizz(${quiz.id})"></ion-icon></div>
+                <div><ion-icon name="trash-outline" onclick="deletarQuizz(${quiz.id})"></ion-icon></div>
+            </div>
+        </div>
+    `;
 }
 
 function renderizarQuizzesUsuario (quizzes) {
@@ -57,7 +77,7 @@ function renderizarQuizzesUsuario (quizzes) {
     return quizzesHTML;
 }
 
-function criadoPeloUsuario(quizzes){
+function criadoPeloUsuario (quizzes) {
     const aux = JSON.parse(localStorage.getItem("IDS"));
     if (aux === null) {
         return false;
@@ -105,22 +125,19 @@ function gerarQuizHTML (quiz) {
         </figure>
     `;
 }
-
-function gerarQuizUsuarioHTML (quiz) {
-    return `
-        <figure onclick="carregarTela2(${quiz.id})">
-            <img src=${quiz.image} />
-            <figcaption>
-                ${quiz.title}
-            </figcaption>
-            <div>
-                <ion-icon name="create-outline"></ion-icon>
-                <ion-icon name="trash-outline"></ion-icon>
-            </div>
-        </figure>
-    `;
-}
 // Funções relacionadas a carregar os quizzes da seção de todos os quizzes.
+
+
+
+// Funções ligadas a edição e remoção de quizzes (bônus)
+function editarQuizz (id) {
+    alert("editar" + id);
+}
+
+function deletarQuizz (id) {
+    alert("deletar" + id);
+}
+// Funções ligadas a edição e remoção de quizzes (bônus)
 
 
 

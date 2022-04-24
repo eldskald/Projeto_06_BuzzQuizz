@@ -56,6 +56,7 @@
 .addNewQuizz {
     font-size: 40px;
     color: var(--maincolor);
+    cursor: pointer;
 
     margin-left: 20px;
 }
@@ -75,24 +76,29 @@
     justify-content: flex-start;
 }
 
-.user > div > figure { /* Botão de cada quiz */
+.user > div > div {
     position: relative;
     width: 340px;
     height: 180px;
     margin-top: 16px;
+}
+
+.user > div > div > figure { /* Botão de cada quiz */
+    width: 100%;
+    height: 100%;
 
     border: 0px solid transparent;
     border-radius: 8px;
     cursor: pointer;
-    filter: brightness(80%);
+    filter: var(--unlit);
     transition: filter 0.5s;
 }
 
-.user > div > figure:hover {
-    filter: brightness(120%);
+.user > div > div > figure:hover {
+    filter: var(--lit);
 }
 
-.user > div > figure > img {
+.user > div > div > figure > img {
     position: absolute;
     top: 0px;
     left: 0px;
@@ -102,7 +108,7 @@
     object-fit: cover;
 }
 
-.user > div > figure > figcaption {
+.user > div > div > figure > figcaption {
     position: absolute;
     bottom: 0px;
     left: 0px;
@@ -119,7 +125,7 @@
     word-break: break-word;
 }
 
-.user > div > figure > div {
+.user > div > div > div {
     position: absolute;
     top: 8px;
     right: 0px;
@@ -128,16 +134,30 @@
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 
     background-color: var(--maincolor);
     border-radius: 10px 0px 0px 10px;
 }
 
-.user > div > figure > div > ion-icon {
-    font-size: 36px;
+.user > div > div > div > div {
+    height: 44px;
+    width: 44px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user > div > div > div > div > ion-icon {
+    font-size: 28px;
     color: var(--fontcolor);
+    transition: all 200ms;
+}
+
+.user > div > div > div > div > ion-icon:hover {
+    font-size: 36px;
 }
 
 /*Lista de quizz usuario*/
@@ -182,12 +202,12 @@
     border: 0px solid transparent;
     border-radius: 8px;
     cursor: pointer;
-    filter: brightness(80%);
+    filter: var(--unlit);
     transition: filter 0.5s;
 }
 
 .lista-de-quizzes > div > figure:hover {
-    filter: brightness(120%);
+    filter: var(--lit);
 }
 
 .lista-de-quizzes > div > figure > img {
