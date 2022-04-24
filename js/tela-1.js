@@ -154,11 +154,28 @@ function editarQuizz (id) {
     carregaTela3(id);
 }
 
+function pegarChaveEspecifica(id){
+    const aux = JSON.parse(localStorage.getItem("IDS"));
+    let chave;
+    for(let i=0;i<aux.length; i++){
+        if(id == aux[i].id){
+            chave = aux[i].chave;
+        }
+    }
+    return chave;
+}
+
 function deletarQuizz (id) {
     alert("deletar" + id);
+    const chave = pegarChaveEspecifica(id);
+    console.log(chave)
+    const promise = axios.delete(API_URL+"/"+id, {
+        headers: {
+          key: chave
+        }
+      });
+      promise.then(carregarTela1)
 }
 // Funções ligadas a edição e remoção de quizzes (bônus)
-
-
 
 carregarTela1();

@@ -34,46 +34,68 @@ function carregaTela3(editarID){
 
 function verifTitulo(titulo){
     if(titulo.length >= 20 && titulo.length <= 65){
+        document.querySelector(".erroT").classList.add("escondido")
         return true;
     }
     else{
+        document.querySelector(".erroT").classList.remove("escondido")
         return false;
     }
 }
 
 function verifUrl(url){
     const pattern = "https://";
-    if (url.includes(pattern) || url =="") {    
+    if (url.includes(pattern)) {    
+        document.querySelector(".erroI").classList.add("escondido")
         return true;
     }
     else {
+        document.querySelector(".erroI").classList.remove("escondido")
+        return false;
+    }
+}
+
+function verifUrlINC(url){
+    const pattern = "https://";
+    if (url.includes(pattern) || url=="" ) {    
+        document.querySelector(".erroI").classList.add("escondido")
+        return true;
+    }
+    else {
+        document.querySelector(".erroI").classList.remove("escondido")
         return false;
     }
 }
 
 function verifNperguntas(Nperg){
     if(Nperg >= 3){
+        document.querySelector(".erroP").classList.add("escondido")
         return true;
     }
     else{
+        document.querySelector(".erroP").classList.remove("escondido")
         return false;
     }
 }
 
 function verifNiveis(NNiveis){
     if(NNiveis >= 2){
+        document.querySelector(".erroN").classList.add("escondido")
         return true;
     }
     else{
+        document.querySelector(".erroN").classList.remove("escondido")
         return false;
     }
 }
 
 function VTXTperg(TXT){
     if(TXT.length >= 20){
+        document.querySelector(".erroTXT").classList.add("escondido");
         return true;
     }
     else{
+        document.querySelector(".erroTXT").classList.remove("escondido");
         return false;
     }
 }
@@ -81,18 +103,28 @@ function VTXTperg(TXT){
 function VCor(cor){
     const auxiliar = cor.includes("#");
     if(auxiliar && cor.length == 7){
+        document.querySelector(".erroCor").classList.add("escondido");
         return true;
     }
     else{
+        document.querySelector(".erroCor").classList.remove("escondido");
         return false;
     }
 }
 
 function VRespostas(RCorreta, RINcorreta1, RINcorreta2,RINcorreta3){
     if(RCorreta!="" && (RINcorreta1!="" || RINcorreta2!="" || RINcorreta3!="" )){
+        document.querySelector(".erroRC").classList.add("escondido")
+        document.querySelector(".erroRI").classList.add("escondido")
         return true;
     }
     else{
+        if(RCorreta==""){
+            document.querySelector(".erroRC").classList.remove("escondido")
+        }
+        if(RINcorreta1==""&& RINcorreta2=="" && RINcorreta3==""){
+            document.querySelector(".erroRI").classList.remove("escondido")
+        }
         return false;
     }
 }
@@ -120,8 +152,8 @@ function verifResp(elemento,numero){
     const aux3 = VRespostas(RCorreta, RINcorreta1, RINcorreta2,RINcorreta3);
     const aux4 = verifUrl(URLCorreta);
     const aux5 = verifUrl(UrlIncorreta1);
-    const aux6 = verifUrl(UrlIncorreta2);
-    const aux7 = verifUrl(UrlIncorreta3);
+    const aux6 = verifUrlINC(UrlIncorreta2);
+    const aux7 = verifUrlINC(UrlIncorreta3);
    
     
    if(aux && aux2 && aux3 && aux4 && aux5 && aux6 && aux7){
@@ -205,8 +237,9 @@ function verifResp(elemento,numero){
         `
    }
    else{
-       alert("Revise suas resposta e preencha os campos corretamente.");
+       return
    }
+   
 }
 
 
@@ -223,11 +256,13 @@ function montaPerg(elemento){
             <div class="container-input">
                 <p>Pergunta:</p>
                 <input class="TXTPerg-${num}" type="text" placeholder="Escreva aqui..."></input>
+                <p class="erroTXT escondido">Certifique-se que sua pergunta tem no mínimo 20 caracteres.</p>
             </div>
 
             <div class="container-input">
                 <p>Cor (hex code):</p>
                 <input class="CorPerg-${num}" type="text" placeholder="Escreva aqui..."></input>
+                <p class="erroCor escondido">Certifique-se que sua cor está na forma hexadecimal (#******).</p>
             </div>
 
             <p class="perg">Resposta correta</p>
@@ -235,11 +270,13 @@ function montaPerg(elemento){
             <div class="container-input">
                 <p>Resposta certa:</p>
                 <input class="RespCorreta-${num}" type="text" placeholder="Escreva aqui..."></input>
+                <p class="erroRC escondido">Certifique-se que você inseriu a resposta certa.</p>
             </div>
 
             <div class="container-input">
                 <p>URL da imagem:</p>
                 <input class="IMGCorreta-${num}" type="text" placeholder="Escreva aqui..."></input>
+                <p class="erroCorreta escondido">Certifique-se que seu URL foi escrito de maneira correta.</p>
             </div>
 
             <p class="perg">Respostas incorretas</p>
@@ -247,11 +284,13 @@ function montaPerg(elemento){
             <div class="container-input">
                 <p>Resposta errada 1:</p>
                 <input class="RespIncorreta1-${num}" type="text" placeholder="Escreva aqui..."></input>
+                <p class="erroRI escondido">Certifique-se que você inseriu pelo menos uma resposta incorreta.</p>
             </div>
 
             <div class="container-input">
                 <p>URL da imagem:</p>
                 <input class="IMGIncorreta1-${num}" type="text" placeholder="Escreva aqui..."></input>
+                <p class="erroI escondido">Certifique-se que seu URL foi escrito de maneira correta.</p>
             </div>
 
             <div class="container-input">
@@ -262,6 +301,7 @@ function montaPerg(elemento){
             <div class="container-input">
                 <p>URL da imagem:</p>
                 <input class="IMGIncorreta2-${num}" type="text" placeholder="Escreva aqui..."></input>
+                <p class="erroI escondido">Certifique-se que seu URL foi escrito de maneira correta.</p>
             </div>
 
             <div class="container-input">
@@ -272,6 +312,7 @@ function montaPerg(elemento){
             <div class="container-input">
                 <p>URL da imagem:</p>
                 <input class="IMGIncorreta3-${num}" type="text" placeholder="Escreva aqui..."></input>
+                <p class="erroI escondido">Certifique-se que seu URL foi escrito de maneira correta.</p>
             </div>
 
             <button class="salvar" onclick="verifResp(this,${num})">Salvar Respostas!</button>
@@ -290,6 +331,7 @@ function VTituloN(titulo){
         return true;
     }
     else{
+        document.querySelector(".erroNome").classList.remove("escondido");
         return false;
     }
 }
@@ -302,6 +344,7 @@ function VPorcentagem(pct){
         return true;
     }
     else{
+        document.querySelector(".erroPct").classList.remove("escondido");
         return false;
     }
 }
@@ -311,6 +354,7 @@ function VDescricao(descricao){
         return true;
     }
     else{
+        document.querySelector(".erroDes").classList.remove("escondido");
         return false;
     }
 }
@@ -352,8 +396,6 @@ function finalizarQuizz(){
             limparMain();
             montaNiveis();
         }
-        alert("deu ruim")
-
     }
 }
 
@@ -383,11 +425,7 @@ function verifNiv(elemento, numero){
                 <span class="perg">${txt}</span>
                 <span><ion-icon name="checkmark-outline"></ion-icon></span>
         `
-    }else{
-        alert("Revise suas resposta e preencha os campos corretamente.")
     }
-    
-
 }
 
 function expandeNivel(elemento){
@@ -403,21 +441,25 @@ function expandeNivel(elemento){
             <div class="container-input">
                 <p>Nome do nível:</p>
                 <input class="TituloNivel-${num}" type="text" placeholder="Escreva aqui..."></input>
+                <p class="erroNome escondido">Certifique-se que seu título tem no mínimo 10 caracteres.</p>
             </div>
 
             <div class="container-input">
                 <p>% de acerto mínimo:</p>
                 <input class="Porcentagem-${num}" type="text" placeholder="Escreva aqui..."></input>
+                <p class="erroPct escondido">Certifique-se que é um número de 0 a 100.</p>
             </div>
 
             <div class="container-input">
                 <p>URL da imagem:</p>
                 <input class="UrlNivel-${num}" type="text" placeholder="Escreva aqui..."></input>
+                <p class="erroI escondido">Certifique-se que é um link válido.</p>
             </div>
 
             <div class="container-input">
                 <p>Descrição:</p>
                 <input class="DescricaoNivel-${num}" type="text" placeholder="Escreva aqui..."></input>
+                <p class="erroDes escondido">Certifique-se que sua descrição tem no mínimo 30 caracteres.</p>
             </div>
 
             <button class="salvar" onclick="verifNiv(this,${num})">Salvar Respostas!</button>
@@ -448,10 +490,7 @@ function passarNiveis(){
     if(NPerg == contador){
         limparMain();
         montaNiveis();
-    }
-    else{
-        alert("Você não prencheu todos os campos necessários, verifique suas respostas e tente novamente!")
-    }
+    }    
 }
 
 
@@ -485,13 +524,11 @@ function verificaInformacoes(){
 
     if(aux && aux2 && aux3 && aux4){
         criarPerguntas();
-        
     }
     else{
-        alert("Verifique suas respostas e preencha os dados corretamente!");
+        return
     }
-
-}
+    }
 
 
 function telaInfoBasica(){
@@ -505,21 +542,25 @@ function telaInfoBasica(){
                 <div class="container-input">
                     <p>Título do quizz:</p>
                     <input class="title" type="text" placeholder="Escreva aqui...">
+                    <p class="erroT escondido">Certifique-se que seu titulo tem entre 20 e 65 caracteres.</p>
                 </div>
 
                 <div class="container-input">
                     <p>URL da imagem:</p>
                     <input class="urlIMG" type="url" placeholder="Escreva aqui...">
+                    <p class="erroI escondido">Insira um URL Válido.</p>
                 </div>
 
                 <div class="container-input">
                     <p>Total de perguntas:</p>
                     <input class="NPerguntas" type="text" placeholder="Escreva aqui...">
+                    <p class="erroP escondido">São necessarios no minimo 3 perguntas.</p>
                 </div>
 
                 <div class="container-input">
                     <p>Total de níveis:</p>
                     <input class="NNiveis" type="text" placeholder="Escreva aqui...">
+                    <p class="erroN escondido">São necessarios no minimo 2 níveis.</p>
                 </div>
             </div>
 
