@@ -291,7 +291,7 @@ function finalizarQuizz(){
         if (quizOriginal) {
             const quizzEditado = axios({
                 method: "PUT",
-                headers: { "secret-key": pegarChaveSecreta() },
+                headers: { "Secret-Key": pegarChaveSecreta() },
                 data: quizz,
                 url: API_URL + `/${quizOriginal.id}`
             });

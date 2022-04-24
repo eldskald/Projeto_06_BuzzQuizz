@@ -37,6 +37,7 @@ function carregarQuizzesDoUsuario () {
     const aux = JSON.parse(localStorage.getItem("IDS"));
     if (aux === null) {
         botaoCriarQuizz();
+        carregarQuizzesDosOutros();
     }
     else {
         recuperarQuizzUsuario(aux);

@@ -26,18 +26,19 @@ function salvarID(elemento){
     limparMain();
     sucesso(elemento);
     console.log(elemento);
-    const idEChave = { id: elemento.data.id, chave: elemento.headers["secret-key"] };
-    console.log(idEChave);
-    let IdQuizzSalvos = JSON.parse(localStorage.getItem("IDS"))
-    if(IdQuizzSalvos == null){
-        const NID = [idEChave];
-        const NIDString = JSON.stringify(NID);
-        localStorage.setItem("IDS", NIDString);
-    }
-    else{
-        IdQuizzSalvos.push(idEChave);
-        const aux = JSON.stringify(IdQuizzSalvos);
-        localStorage.setItem("IDS", aux);
+    if (!quizOriginal) {
+        const idEChave = { id: elemento.data.id, chave: elemento.data.key };
+        let IdQuizzSalvos = JSON.parse(localStorage.getItem("IDS"))
+        if(IdQuizzSalvos == null){
+            const NID = [idEChave];
+            const NIDString = JSON.stringify(NID);
+            localStorage.setItem("IDS", NIDString);
+        }
+        else{
+            IdQuizzSalvos.push(idEChave);
+            const aux = JSON.stringify(IdQuizzSalvos);
+            localStorage.setItem("IDS", aux);
+        }
     }
 }
 
