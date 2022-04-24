@@ -20,9 +20,11 @@ function carregaTela3(editarID){
     limparMain();
     quizOriginal = null;
     if (editarID) {
+        renderizarSpinner();
         const promessa = axios.get(API_URL + `/${editarID}`);
         promessa.then(function (resposta) {
             quizOriginal = resposta.data;
+            removerSpinner();
             telaInfoBasica();
         });
     }

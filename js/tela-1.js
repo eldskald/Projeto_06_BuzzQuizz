@@ -4,9 +4,11 @@ let arrayQuizzes = [];
 function carregarTela1 () {
     limparMain();
     resetarScroll();
+    renderizarSpinner();
 
     const promessa = axios.get(API_URL);
     promessa.then(function (resposta) {
+        removerSpinner()
         arrayQuizzes = resposta.data;
         carregarQuizzesDoUsuario();
     });
@@ -17,7 +19,7 @@ function carregarTela1 () {
 // Funções relacionadas a carregar os quizzes da seção de quizzes criados pelo usuário.
 let QCriadoUser = [];
 
-function tratarPromise(qCriado){
+function tratarPromise (qCriado) {
     const aux = JSON.parse(localStorage.getItem("IDS"));
     QCriadoUser.push(qCriado);
     if(QCriadoUser.length === aux.length){
@@ -25,9 +27,9 @@ function tratarPromise(qCriado){
     }
 }
 
-function recuperarQuizzUsuario(lista){
-    for(let i = 0; i<lista.length;i++){
-        const auxiliar = axios.get(API_URL+"/"+lista[i].id)
+function recuperarQuizzUsuario (lista) {
+    for(let i = 0; i < lista.length; i++){
+        const auxiliar = axios.get(API_URL + "/" + lista[i].id)
         auxiliar.then(tratarPromise)
     }
 }
@@ -44,7 +46,7 @@ function carregarQuizzesDoUsuario () {
     }
 }
 
-function botaoCriarQuizz() {
+function botaoCriarQuizz () {
     MAIN.innerHTML = `
         <div class = "CriarQuizzouQuizzCriados">
             <p>Você não criou nenhum</br> quizz ainda :(</p>
@@ -60,9 +62,11 @@ function CarregarUser (elemento) {
         <div class="user">
             <div class="head">
                 <header>Seus Quizzes</header>
-                <ion-icon class="addNewQuizz" name="add-circle" onclick="carregaTela3()"></ion-icon>
+                <span class="container-do-addNewQuizz">
+                    <ion-icon class="addNewQuizz" name="add-circle" onclick="carregaTela3()"></ion-icon>
+                </span>
             </div>
-        <div>${elemento}</div>
+            <div>${elemento}</div>
         </div>
     `;
     carregarQuizzesDosOutros();
@@ -106,8 +110,6 @@ function criadoPeloUsuario (quizzes) {
     }
     return false;
 }
-
-
 // Funções relacionadas a carregar os quizzes da seção de quizzes criados pelo usuário.
 
 

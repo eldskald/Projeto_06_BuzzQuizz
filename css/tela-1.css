@@ -53,12 +53,24 @@
     color: var(--fontcolor);
 }
 
+.container-do-addNewQuizz {
+    width: 64px;
+    height: 64px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .addNewQuizz {
     font-size: 40px;
     color: var(--maincolor);
     cursor: pointer;
+    transition: all 200ms;
+}
 
-    margin-left: 20px;
+.addNewQuizz:hover {
+    font-size: 56px;
 }
 
 .user > div {
