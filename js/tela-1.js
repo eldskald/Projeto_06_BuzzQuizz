@@ -164,17 +164,47 @@ function pegarChaveEspecifica(id){
     }
     return chave;
 }
+let ID_Aux;
+
+function IDeigual(id){
+    if(id.id === ID_Aux){
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+function retirardoLStorage(id){
+    ID_Aux = id;
+    const aux = JSON.parse(localStorage.getItem("IDS"));
+    if(aux.length == 1){
+        localStorage.clear();
+    }
+    else{
+        const Naux = aux.filter(IDeigual);
+        console.log(Naux)
+        const StringAux = JSON.stringify(Naux);
+        localStorage.setItem("IDS", StringAux);
+    }
+}
+
+function reseta(aux){
+    window.location.reload(true);
+}
 
 function deletarQuizz (id) {
-    alert("deletar" + id);
     const chave = pegarChaveEspecifica(id);
-    console.log(chave)
-    const promise = axios.delete(API_URL+"/"+id, {
-        headers: {
-          key: chave
-        }
-      });
-      promise.then(carregarTela1)
+    let promise;
+    if(window.confirm("Tem certeza que quer apagar essa obra prima?")){
+        promise = axios({
+            method: "DELETE",
+            headers: { "Secret-Key": chave },
+            data: quizz,
+            url: `${API_URL}/${id}`
+        });
+        retirardoLStorage(id);
+        promise.then(reseta)
+    }
 }
 // Funções ligadas a edição e remoção de quizzes (bônus)
 
