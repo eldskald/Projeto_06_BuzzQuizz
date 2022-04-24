@@ -1,3 +1,4 @@
+
 .InfosBasicas{
     width: 100%;
 
@@ -32,8 +33,27 @@
     border-radius: 9px;
 }
 
-input{
+.container-input {
     width: 90%;
+
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.container-input > p {
+    width: 25%;
+    margin-right: 8px;
+    
+    font-family: var(--script);
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--fontcolor);
+    text-align: end;
+}
+
+input{
+    width: 75%;
     height: 45px;
     margin: 10px;
 
@@ -65,8 +85,10 @@ input::placeholder{
 .prosseguir{
     margin-top: 80px;
     margin-bottom: 50px;
-    width: 40%;
+    max-width: 40%;
     height: 40px;
+
+    padding: 0px 16px;
 
     background-color: var(--maincolor);
     border: 1px solid var(--maincolor);
@@ -239,5 +261,11 @@ input::placeholder{
         width: 100%;
     
         border-radius: 0px;
+    }
+
+    .container-input > p {
+        margin-right: 8px;
+        
+        font-size: 14px;
     }
 }

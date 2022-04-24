@@ -15,7 +15,6 @@ let quizOriginal;
 
 
 //Essa funçao faz com que a tela 1 saia da tela e ainda vai adicionar a tela 3
-
 function carregaTela3(editarID){
     limparMain();
     quizOriginal = null;
@@ -220,22 +219,60 @@ function montaPerg(elemento){
     
         <div class="pergExpandida">
             <p class="perg marker">${nome}</p>
-            <input class="TXTPerg-${num}" type="text" placeholder="Texto da pergunta"></input>
-            <input class="CorPerg-${num}" type="text" placeholder="Cor de fundo da pergunta"></input>
+
+            <div class="container-input">
+                <p>Pergunta:</p>
+                <input class="TXTPerg-${num}" type="text" placeholder="Escreva aqui..."></input>
+            </div>
+
+            <div class="container-input">
+                <p>Cor (hex code):</p>
+                <input class="CorPerg-${num}" type="text" placeholder="Escreva aqui..."></input>
+            </div>
 
             <p class="perg">Resposta correta</p>
-            <input class="RespCorreta-${num}" type="text" placeholder="Resposta Correta"></input>
-            <input class="IMGCorreta-${num}" type="text" placeholder="URL da imagem"></input>
+
+            <div class="container-input">
+                <p>Resposta certa:</p>
+                <input class="RespCorreta-${num}" type="text" placeholder="Escreva aqui..."></input>
+            </div>
+
+            <div class="container-input">
+                <p>URL da imagem:</p>
+                <input class="IMGCorreta-${num}" type="text" placeholder="Escreva aqui..."></input>
+            </div>
 
             <p class="perg">Respostas incorretas</p>
-            <input class="RespIncorreta1-${num}" type="text" placeholder="Resposta Incorreta 1"></input>
-            <input class="IMGIncorreta1-${num}" type="text" placeholder="URL da imagem 1"></input>
 
-            <input class="RespIncorreta2-${num}" type="text" placeholder="Resposta Incorreta 2"></input>
-            <input class="IMGIncorreta2-${num}" type="text" placeholder="URL da imagem 2"></input>
+            <div class="container-input">
+                <p>Resposta errada 1:</p>
+                <input class="RespIncorreta1-${num}" type="text" placeholder="Escreva aqui..."></input>
+            </div>
 
-            <input class="RespIncorreta3-${num}" type="text" placeholder="Resposta Incorreta 3"></input>
-            <input class="IMGIncorreta3-${num}" type="text" placeholder="URL da imagem 3"></input>
+            <div class="container-input">
+                <p>URL da imagem:</p>
+                <input class="IMGIncorreta1-${num}" type="text" placeholder="Escreva aqui..."></input>
+            </div>
+
+            <div class="container-input">
+                <p>Resposta errada 2:</p>
+                <input class="RespIncorreta2-${num}" type="text" placeholder="Escreva aqui..."></input>
+            </div>
+
+            <div class="container-input">
+                <p>URL da imagem:</p>
+                <input class="IMGIncorreta2-${num}" type="text" placeholder="Escreva aqui..."></input>
+            </div>
+
+            <div class="container-input">
+                <p>Resposta errada 3:</p>
+                <input class="RespIncorreta3-${num}" type="text" placeholder="Escreva aqui..."></input>
+            </div>
+
+            <div class="container-input">
+                <p>URL da imagem:</p>
+                <input class="IMGIncorreta3-${num}" type="text" placeholder="Escreva aqui..."></input>
+            </div>
 
             <button class="salvar" onclick="verifResp(this,${num})">Salvar Respostas!</button>
 
@@ -360,22 +397,31 @@ function expandeNivel(elemento){
     const num = Number(nome.replace("Nível ",""));
 
     aux.innerHTML = `
-    
         <div class="pergExpandida">
             <p class="perg marker">${nome}</p>
 
-            <input class="TituloNivel-${num}" type="text" placeholder="Titulo do nível"></input>
+            <div class="container-input">
+                <p>Nome do nível:</p>
+                <input class="TituloNivel-${num}" type="text" placeholder="Escreva aqui..."></input>
+            </div>
 
-            <input class="Porcentagem-${num}" type="text" placeholder="% de acerto mínima"></input>
+            <div class="container-input">
+                <p>% de acerto mínimo:</p>
+                <input class="Porcentagem-${num}" type="text" placeholder="Escreva aqui..."></input>
+            </div>
 
-            <input class="UrlNivel-${num}" type="text" placeholder="URL da imagem do nível"></input>
+            <div class="container-input">
+                <p>URL da imagem:</p>
+                <input class="UrlNivel-${num}" type="text" placeholder="Escreva aqui..."></input>
+            </div>
 
-            <input class="DescricaoNivel-${num}" type="text" placeholder="Descrição do nível"></input>
+            <div class="container-input">
+                <p>Descrição:</p>
+                <input class="DescricaoNivel-${num}" type="text" placeholder="Escreva aqui..."></input>
+            </div>
 
             <button class="salvar" onclick="verifNiv(this,${num})">Salvar Respostas!</button>
-
         </div>
-    
     `;
 
     if (quizOriginal) {
@@ -456,10 +502,25 @@ function telaInfoBasica(){
             </header>
 
             <div class="quadroRespostas">
-                <input class="title" type="text" placeholder="Título do seu quizz">
-                <input class="urlIMG" type="url" placeholder="URL da imagem do seu quizz (com https)">
-                <input class="NPerguntas" type="text" placeholder="Quantidade de perguntas do quizz">
-                <input class="NNiveis" type="text" placeholder="Quantidade de níveis do quizz">
+                <div class="container-input">
+                    <p>Título do quizz:</p>
+                    <input class="title" type="text" placeholder="Escreva aqui...">
+                </div>
+
+                <div class="container-input">
+                    <p>URL da imagem:</p>
+                    <input class="urlIMG" type="url" placeholder="Escreva aqui...">
+                </div>
+
+                <div class="container-input">
+                    <p>Total de perguntas:</p>
+                    <input class="NPerguntas" type="text" placeholder="Escreva aqui...">
+                </div>
+
+                <div class="container-input">
+                    <p>Total de níveis:</p>
+                    <input class="NNiveis" type="text" placeholder="Escreva aqui...">
+                </div>
             </div>
 
             <button class="prosseguir" onclick="verificaInformacoes()">
