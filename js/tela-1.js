@@ -9,22 +9,37 @@ function carregarTela1 () {
     promessa.then(function (resposta) {
         arrayQuizzes = resposta.data;
         carregarQuizzesDoUsuario();
-        carregarQuizzesDosOutros();
     });
 }
 
 
 
 // Funções relacionadas a carregar os quizzes da seção de quizzes criados pelo usuário.
+let QCriadoUser = [];
+
+function tratarPromise(qCriado){
+    const aux = JSON.parse(localStorage.getItem("IDS"));
+    QCriadoUser.push(qCriado);
+    if(QCriadoUser.length === aux.length){
+        renderizarQuizzesUsuario(QCriadoUser);
+    }
+}
+
+function recuperarQuizzUsuario(lista){
+    for(let i = 0; i<lista.length;i++){
+        const auxiliar = axios.get(API_URL+"/"+lista[i].id)
+        auxiliar.then(tratarPromise)
+    }
+}
+
+
 function carregarQuizzesDoUsuario () {
     const aux = JSON.parse(localStorage.getItem("IDS"));
     if (aux === null) {
         botaoCriarQuizz();
     }
     else {
-        const quizzes = arrayQuizzes.filter(criadoPeloUsuario);
-        const qUser = renderizarQuizzesUsuario(quizzes);
-        CarregarUser(qUser);
+        recuperarQuizzUsuario(aux);
     }
 }
 
@@ -49,20 +64,21 @@ function CarregarUser (elemento) {
         <div>${elemento}</div>
         </div>
     `;
+    carregarQuizzesDosOutros();
 }
 
 function gerarQuizUsuarioHTML (quiz) {
     return `
         <div>
-            <figure onclick="carregarTela2(${quiz.id})">
-                <img src=${quiz.image} />
+            <figure onclick="carregarTela2(${quiz.data.id})">
+                <img src=${quiz.data.image} />
                 <figcaption>
-                    ${quiz.title}
+                    ${quiz.data.title}
                 </figcaption>
             </figure>
             <div>
-                <div><ion-icon name="create-outline" onclick="editarQuizz(${quiz.id})"></ion-icon></div>
-                <div><ion-icon name="trash-outline" onclick="deletarQuizz(${quiz.id})"></ion-icon></div>
+                <div><ion-icon name="create-outline" onclick="editarQuizz(${quiz.data.id})"></ion-icon></div>
+                <div><ion-icon name="trash-outline" onclick="deletarQuizz(${quiz.data.id})"></ion-icon></div>
             </div>
         </div>
     `;
@@ -70,11 +86,10 @@ function gerarQuizUsuarioHTML (quiz) {
 
 function renderizarQuizzesUsuario (quizzes) {
     let quizzesHTML = "";
-    console.log(quizzes)
     for (let i = 0; i < quizzes.length; i++) {
         quizzesHTML += gerarQuizUsuarioHTML(quizzes[i]);
     }
-    return quizzesHTML;
+    CarregarUser(quizzesHTML);
 }
 
 function criadoPeloUsuario (quizzes) {
@@ -90,6 +105,8 @@ function criadoPeloUsuario (quizzes) {
     }
     return false;
 }
+
+
 // Funções relacionadas a carregar os quizzes da seção de quizzes criados pelo usuário.
 
 

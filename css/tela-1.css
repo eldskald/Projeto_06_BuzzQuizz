@@ -81,6 +81,7 @@
     width: 340px;
     height: 180px;
     margin-top: 16px;
+    margin-left: 28px;
 }
 
 .user > div > div > figure { /* Botão de cada quiz */
