@@ -254,64 +254,84 @@ function montaPerg(elemento){
             <p class="perg marker">${nome}</p>
 
             <div class="container-input">
-                <p>Pergunta:</p>
-                <input class="TXTPerg-${num}" type="text" placeholder="Escreva aqui..."></input>
+                <div>
+                    <p>Pergunta:</p>
+                    <input class="TXTPerg-${num}" type="text" placeholder="Escreva aqui..."></input>
+                </div>
                 <p class="erroTXT escondido">Certifique-se que sua pergunta tem no mínimo 20 caracteres.</p>
             </div>
 
             <div class="container-input">
-                <p>Cor (hex code):</p>
-                <input class="CorPerg-${num}" type="text" placeholder="Escreva aqui..."></input>
+                <div>
+                    <p>Cor (hex code):</p>
+                    <input class="CorPerg-${num}" type="text" placeholder="Escreva aqui..."></input>
+                </div>
                 <p class="erroCor escondido">Certifique-se que sua cor está na forma hexadecimal (#******).</p>
             </div>
 
             <p class="perg">Resposta correta</p>
 
             <div class="container-input">
-                <p>Resposta certa:</p>
-                <input class="RespCorreta-${num}" type="text" placeholder="Escreva aqui..."></input>
+                <div>
+                    <p>Resposta certa:</p>
+                    <input class="RespCorreta-${num}" type="text" placeholder="Escreva aqui..."></input>
+                </div>
                 <p class="erroRC escondido">Certifique-se que você inseriu a resposta certa.</p>
             </div>
 
             <div class="container-input">
-                <p>URL da imagem:</p>
-                <input class="IMGCorreta-${num}" type="text" placeholder="Escreva aqui..."></input>
+                <div>
+                    <p>URL da imagem:</p>
+                    <input class="IMGCorreta-${num}" type="text" placeholder="Escreva aqui..."></input>
+                </div>
                 <p class="erroCorreta escondido">Certifique-se que seu URL foi escrito de maneira correta.</p>
             </div>
 
             <p class="perg">Respostas incorretas</p>
 
             <div class="container-input">
-                <p>Resposta errada 1:</p>
-                <input class="RespIncorreta1-${num}" type="text" placeholder="Escreva aqui..."></input>
+                <div>
+                    <p>Resposta errada 1:</p>
+                    <input class="RespIncorreta1-${num}" type="text" placeholder="Escreva aqui..."></input>
+                </div>
                 <p class="erroRI escondido">Certifique-se que você inseriu pelo menos uma resposta incorreta.</p>
             </div>
 
             <div class="container-input">
-                <p>URL da imagem:</p>
-                <input class="IMGIncorreta1-${num}" type="text" placeholder="Escreva aqui..."></input>
+                <div>
+                    <p>URL da imagem:</p>
+                    <input class="IMGIncorreta1-${num}" type="text" placeholder="Escreva aqui..."></input>
+                </div>
                 <p class="erroI escondido">Certifique-se que seu URL foi escrito de maneira correta.</p>
             </div>
 
             <div class="container-input">
-                <p>Resposta errada 2:</p>
-                <input class="RespIncorreta2-${num}" type="text" placeholder="Escreva aqui..."></input>
+                <div>
+                    <p>Resposta errada 2:</p>
+                    <input class="RespIncorreta2-${num}" type="text" placeholder="Escreva aqui..."></input>
+                </div>
             </div>
 
             <div class="container-input">
-                <p>URL da imagem:</p>
-                <input class="IMGIncorreta2-${num}" type="text" placeholder="Escreva aqui..."></input>
+                <div>
+                    <p>URL da imagem:</p>
+                    <input class="IMGIncorreta2-${num}" type="text" placeholder="Escreva aqui..."></input>
+                </div>
                 <p class="erroI escondido">Certifique-se que seu URL foi escrito de maneira correta.</p>
             </div>
 
             <div class="container-input">
-                <p>Resposta errada 3:</p>
-                <input class="RespIncorreta3-${num}" type="text" placeholder="Escreva aqui..."></input>
+                <div>
+                    <p>Resposta errada 3:</p>
+                    <input class="RespIncorreta3-${num}" type="text" placeholder="Escreva aqui..."></input>
+                </div>
             </div>
 
             <div class="container-input">
-                <p>URL da imagem:</p>
-                <input class="IMGIncorreta3-${num}" type="text" placeholder="Escreva aqui..."></input>
+                <div>
+                    <p>URL da imagem:</p>
+                    <input class="IMGIncorreta3-${num}" type="text" placeholder="Escreva aqui..."></input>
+                </div>
                 <p class="erroI escondido">Certifique-se que seu URL foi escrito de maneira correta.</p>
             </div>
 
@@ -439,26 +459,34 @@ function expandeNivel(elemento){
             <p class="perg marker">${nome}</p>
 
             <div class="container-input">
-                <p>Nome do nível:</p>
-                <input class="TituloNivel-${num}" type="text" placeholder="Escreva aqui..."></input>
+                <div>
+                    <p>Nome do nível:</p>
+                    <input class="TituloNivel-${num}" type="text" placeholder="Escreva aqui..."></input>
+                </div>
                 <p class="erroNome escondido">Certifique-se que seu título tem no mínimo 10 caracteres.</p>
             </div>
 
             <div class="container-input">
-                <p>% de acerto mínimo:</p>
-                <input class="Porcentagem-${num}" type="text" placeholder="Escreva aqui..."></input>
+                <div>
+                    <p>% de acerto mínimo:</p>
+                    <input class="Porcentagem-${num}" type="text" placeholder="Escreva aqui..."></input>
+                </div>
                 <p class="erroPct escondido">Certifique-se que é um número de 0 a 100.</p>
             </div>
 
             <div class="container-input">
-                <p>URL da imagem:</p>
-                <input class="UrlNivel-${num}" type="text" placeholder="Escreva aqui..."></input>
+                <div>
+                    <p>URL da imagem:</p>
+                    <input class="UrlNivel-${num}" type="text" placeholder="Escreva aqui..."></input>
+                </div>
                 <p class="erroI escondido">Certifique-se que é um link válido.</p>
             </div>
 
             <div class="container-input">
-                <p>Descrição:</p>
-                <input class="DescricaoNivel-${num}" type="text" placeholder="Escreva aqui..."></input>
+                <div>
+                    <p>Descrição:</p>
+                    <input class="DescricaoNivel-${num}" type="text" placeholder="Escreva aqui..."></input>
+                </div>
                 <p class="erroDes escondido">Certifique-se que sua descrição tem no mínimo 30 caracteres.</p>
             </div>
 
@@ -540,26 +568,34 @@ function telaInfoBasica(){
 
             <div class="quadroRespostas">
                 <div class="container-input">
-                    <p>Título do quizz:</p>
-                    <input class="title" type="text" placeholder="Escreva aqui...">
+                    <div>
+                        <p>Título do quizz:</p>
+                        <input class="title" type="text" placeholder="Escreva aqui...">
+                    </div>
                     <p class="erroT escondido">Certifique-se que seu titulo tem entre 20 e 65 caracteres.</p>
                 </div>
 
                 <div class="container-input">
-                    <p>URL da imagem:</p>
-                    <input class="urlIMG" type="url" placeholder="Escreva aqui...">
+                    <div>
+                        <p>URL da imagem:</p>
+                        <input class="urlIMG" type="url" placeholder="Escreva aqui...">
+                    </div>
                     <p class="erroI escondido">Insira um URL Válido.</p>
                 </div>
 
                 <div class="container-input">
-                    <p>Total de perguntas:</p>
-                    <input class="NPerguntas" type="text" placeholder="Escreva aqui...">
+                    <div>
+                        <p>Total de perguntas:</p>
+                        <input class="NPerguntas" type="text" placeholder="Escreva aqui...">
+                    </div>
                     <p class="erroP escondido">São necessarios no minimo 3 perguntas.</p>
                 </div>
 
                 <div class="container-input">
-                    <p>Total de níveis:</p>
-                    <input class="NNiveis" type="text" placeholder="Escreva aqui...">
+                    <div>
+                        <p>Total de níveis:</p>
+                        <input class="NNiveis" type="text" placeholder="Escreva aqui...">
+                    </div>
                     <p class="erroN escondido">São necessarios no minimo 2 níveis.</p>
                 </div>
             </div>

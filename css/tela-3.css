@@ -35,13 +35,24 @@
 
 .container-input {
     width: 90%;
+    margin: 10px;
+}
 
+.container-input > p {
+    font-family: var(--script);
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--fontcolor);
+    text-align: center;
+}
+
+.container-input > div {
     display: flex;
     justify-content: end;
     align-items: center;
 }
 
-.container-input > p {
+.container-input > div > p {
     width: 25%;
     margin-right: 8px;
     
@@ -55,7 +66,6 @@
 input{
     width: 75%;
     height: 45px;
-    margin: 10px;
 
     padding-left: 32px;
 
