@@ -55,14 +55,26 @@ function verifUrl(url){
     }
 }
 
-function verifUrlINC(url){
+function verifUrl2(url,numero){
     const pattern = "https://";
-    if (url.includes(pattern) || url=="" ) {    
-        document.querySelector(".erroI").classList.add("escondido")
+    if (url.includes(pattern)) {    
+        document.querySelector(".erroI-"+numero).classList.add("escondido")
         return true;
     }
     else {
-        document.querySelector(".erroI").classList.remove("escondido")
+        document.querySelector(".erroI-"+numero).classList.remove("escondido")
+        return false;
+    }
+}
+
+function verifUrlINC(url, numero){
+    const pattern = "https://";
+    if (url.includes(pattern) || url=="" ) {    
+        document.querySelector(".erroI-"+numero).classList.add("escondido")
+        return true;
+    }
+    else {
+        document.querySelector(".erroI-"+numero).classList.remove("escondido")
         return false;
     }
 }
@@ -89,41 +101,41 @@ function verifNiveis(NNiveis){
     }
 }
 
-function VTXTperg(TXT){
+function VTXTperg(TXT, numero){
     if(TXT.length >= 20){
-        document.querySelector(".erroTXT").classList.add("escondido");
+        document.querySelector(".erroTXT-"+numero).classList.add("escondido");
         return true;
     }
     else{
-        document.querySelector(".erroTXT").classList.remove("escondido");
+        document.querySelector(".erroTXT-"+numero).classList.remove("escondido");
         return false;
     }
 }
 
-function VCor(cor){
+function VCor(cor, numero){
     const auxiliar = cor.includes("#");
     if(auxiliar && cor.length == 7){
-        document.querySelector(".erroCor").classList.add("escondido");
+        document.querySelector(".erroCor-"+numero).classList.add("escondido");
         return true;
     }
     else{
-        document.querySelector(".erroCor").classList.remove("escondido");
+        document.querySelector(".erroCor-"+numero).classList.remove("escondido");
         return false;
     }
 }
 
-function VRespostas(RCorreta, RINcorreta1, RINcorreta2,RINcorreta3){
+function VRespostas(RCorreta, RINcorreta1, RINcorreta2,RINcorreta3,numero){
     if(RCorreta!="" && (RINcorreta1!="" || RINcorreta2!="" || RINcorreta3!="" )){
-        document.querySelector(".erroRC").classList.add("escondido")
-        document.querySelector(".erroRI").classList.add("escondido")
+        document.querySelector(".erroRC-"+numero).classList.add("escondido")
+        document.querySelector(".erroRI-"+numero).classList.add("escondido")
         return true;
     }
     else{
         if(RCorreta==""){
-            document.querySelector(".erroRC").classList.remove("escondido")
+            document.querySelector(".erroRC-"+numero).classList.remove("escondido")
         }
         if(RINcorreta1==""&& RINcorreta2=="" && RINcorreta3==""){
-            document.querySelector(".erroRI").classList.remove("escondido")
+            document.querySelector(".erroRI-"+numero).classList.remove("escondido")
         }
         return false;
     }
@@ -147,13 +159,13 @@ function verifResp(elemento,numero){
     const RINcorreta3 = document.querySelector(`.RespIncorreta3-${numero}`).value;
     const UrlIncorreta3 = document.querySelector(`.IMGIncorreta3-${numero}`).value;
     
-    const aux = VTXTperg(TXTP);
-    const aux2 = VCor(Cor);
-    const aux3 = VRespostas(RCorreta, RINcorreta1, RINcorreta2,RINcorreta3);
-    const aux4 = verifUrl(URLCorreta);
-    const aux5 = verifUrl(UrlIncorreta1);
-    const aux6 = verifUrlINC(UrlIncorreta2);
-    const aux7 = verifUrlINC(UrlIncorreta3);
+    const aux = VTXTperg(TXTP, numero);
+    const aux2 = VCor(Cor, numero);
+    const aux3 = VRespostas(RCorreta, RINcorreta1, RINcorreta2,RINcorreta3, numero);
+    const aux4 = verifUrl2(URLCorreta, numero);
+    const aux5 = verifUrl2(UrlIncorreta1, numero);
+    const aux6 = verifUrlINC(UrlIncorreta2, numero);
+    const aux7 = verifUrlINC(UrlIncorreta3, numero);
    
     
    if(aux && aux2 && aux3 && aux4 && aux5 && aux6 && aux7){
@@ -258,7 +270,7 @@ function montaPerg(elemento){
                     <p>Pergunta:</p>
                     <input class="TXTPerg-${num}" type="text" placeholder="Escreva aqui..."></input>
                 </div>
-                <p class="erroTXT escondido">Certifique-se que sua pergunta tem no mínimo 20 caracteres.</p>
+                <p class="erroTXT-${num} escondido">Certifique-se que sua pergunta tem no mínimo 20 caracteres.</p>
             </div>
 
             <div class="container-input">
@@ -266,7 +278,7 @@ function montaPerg(elemento){
                     <p>Cor (hex code):</p>
                     <input class="CorPerg-${num}" type="text" placeholder="Escreva aqui..."></input>
                 </div>
-                <p class="erroCor escondido">Certifique-se que sua cor está na forma hexadecimal (#******).</p>
+                <p class="erroCor-${num} escondido">Certifique-se que sua cor está na forma hexadecimal (#******).</p>
             </div>
 
             <p class="perg">Resposta correta</p>
@@ -276,7 +288,7 @@ function montaPerg(elemento){
                     <p>Resposta certa:</p>
                     <input class="RespCorreta-${num}" type="text" placeholder="Escreva aqui..."></input>
                 </div>
-                <p class="erroRC escondido">Certifique-se que você inseriu a resposta certa.</p>
+                <p class="erroRC-${num} escondido">Certifique-se que você inseriu a resposta certa.</p>
             </div>
 
             <div class="container-input">
@@ -284,7 +296,7 @@ function montaPerg(elemento){
                     <p>URL da imagem:</p>
                     <input class="IMGCorreta-${num}" type="text" placeholder="Escreva aqui..."></input>
                 </div>
-                <p class="erroCorreta escondido">Certifique-se que seu URL foi escrito de maneira correta.</p>
+                <p class="erroCorreta-${num} escondido">Certifique-se que seu URL foi escrito de maneira correta.</p>
             </div>
 
             <p class="perg">Respostas incorretas</p>
@@ -294,7 +306,7 @@ function montaPerg(elemento){
                     <p>Resposta errada 1:</p>
                     <input class="RespIncorreta1-${num}" type="text" placeholder="Escreva aqui..."></input>
                 </div>
-                <p class="erroRI escondido">Certifique-se que você inseriu pelo menos uma resposta incorreta.</p>
+                <p class="erroRI-${num} escondido">Certifique-se que você inseriu pelo menos uma resposta incorreta.</p>
             </div>
 
             <div class="container-input">
@@ -302,7 +314,7 @@ function montaPerg(elemento){
                     <p>URL da imagem:</p>
                     <input class="IMGIncorreta1-${num}" type="text" placeholder="Escreva aqui..."></input>
                 </div>
-                <p class="erroI escondido">Certifique-se que seu URL foi escrito de maneira correta.</p>
+                <p class="erroI-${num} escondido">Certifique-se que seu URL foi escrito de maneira correta.</p>
             </div>
 
             <div class="container-input">
@@ -317,7 +329,7 @@ function montaPerg(elemento){
                     <p>URL da imagem:</p>
                     <input class="IMGIncorreta2-${num}" type="text" placeholder="Escreva aqui..."></input>
                 </div>
-                <p class="erroI escondido">Certifique-se que seu URL foi escrito de maneira correta.</p>
+                <p class="erroI-${num} escondido">Certifique-se que seu URL foi escrito de maneira correta.</p>
             </div>
 
             <div class="container-input">
@@ -332,7 +344,7 @@ function montaPerg(elemento){
                     <p>URL da imagem:</p>
                     <input class="IMGIncorreta3-${num}" type="text" placeholder="Escreva aqui..."></input>
                 </div>
-                <p class="erroI escondido">Certifique-se que seu URL foi escrito de maneira correta.</p>
+                <p class="erroI-${num} escondido">Certifique-se que seu URL foi escrito de maneira correta.</p>
             </div>
 
             <button class="salvar" onclick="verifResp(this,${num})">Salvar Respostas!</button>
@@ -346,17 +358,18 @@ function montaPerg(elemento){
     }
 }
 
-function VTituloN(titulo){
+function VTituloN(titulo, numero){
     if(titulo.length >= 10){
+        document.querySelector(".erroNome-"+numero).classList.add("escondido");
         return true;
     }
     else{
-        document.querySelector(".erroNome").classList.remove("escondido");
+        document.querySelector(".erroNome-"+numero).classList.remove("escondido");
         return false;
     }
 }
 
-function VPorcentagem(pct){
+function VPorcentagem(pct, numero){
     if(pct>=0 && pct<=100){
         if(pct == 0){
             verificadorNivel++;
@@ -364,17 +377,17 @@ function VPorcentagem(pct){
         return true;
     }
     else{
-        document.querySelector(".erroPct").classList.remove("escondido");
+        document.querySelector(".erroPct-"+numero).classList.remove("escondido");
         return false;
     }
 }
 
-function VDescricao(descricao){
+function VDescricao(descricao, numero){
     if(descricao.length >= 30){
         return true;
     }
     else{
-        document.querySelector(".erroDes").classList.remove("escondido");
+        document.querySelector(".erroDes-"+numero).classList.remove("escondido");
         return false;
     }
 }
@@ -388,6 +401,7 @@ function finalizarQuizz(){
             image: Url,
             questions: questions,
             levels: levels
+        
         }
         console.log(quizz);
 
@@ -406,6 +420,7 @@ function finalizarQuizz(){
             quizzCriado.then(salvarID);
             quizzCriado.catch(() => alert("Deu ruim n salvou"));
         }
+        verificadorNivel=0;
         
     }
     else{
@@ -428,10 +443,10 @@ function verifNiv(elemento, numero){
     const URLNivel = document.querySelector(`.UrlNivel-${numero}`).value;
     const DescriçaoNivel = document.querySelector(`.DescricaoNivel-${numero}`).value;
 
-    const aux = VTituloN(TNivel);
-    const aux2 = VPorcentagem(Porcentagem);
-    const aux3 = verifUrl(URLNivel);
-    const aux4 = VDescricao(DescriçaoNivel);
+    const aux = VTituloN(TNivel, numero);
+    const aux2 = VPorcentagem(Porcentagem, numero);
+    const aux3 = verifUrl2(URLNivel, numero);
+    const aux4 = VDescricao(DescriçaoNivel, numero);
 
     if(aux && aux2 && aux3 && aux4){
         levels[contador2]={
@@ -463,7 +478,7 @@ function expandeNivel(elemento){
                     <p>Nome do nível:</p>
                     <input class="TituloNivel-${num}" type="text" placeholder="Escreva aqui..."></input>
                 </div>
-                <p class="erroNome escondido">Certifique-se que seu título tem no mínimo 10 caracteres.</p>
+                <p class="erroNome-${num} escondido">Certifique-se que seu título tem no mínimo 10 caracteres.</p>
             </div>
 
             <div class="container-input">
@@ -471,7 +486,7 @@ function expandeNivel(elemento){
                     <p>% de acerto mínimo:</p>
                     <input class="Porcentagem-${num}" type="text" placeholder="Escreva aqui..."></input>
                 </div>
-                <p class="erroPct escondido">Certifique-se que é um número de 0 a 100.</p>
+                <p class="erroPct-${num} escondido">Certifique-se que é um número de 0 a 100.</p>
             </div>
 
             <div class="container-input">
@@ -479,7 +494,7 @@ function expandeNivel(elemento){
                     <p>URL da imagem:</p>
                     <input class="UrlNivel-${num}" type="text" placeholder="Escreva aqui..."></input>
                 </div>
-                <p class="erroI escondido">Certifique-se que é um link válido.</p>
+                <p class="erroI-${num} escondido">Certifique-se que é um link válido.</p>
             </div>
 
             <div class="container-input">
@@ -487,7 +502,7 @@ function expandeNivel(elemento){
                     <p>Descrição:</p>
                     <input class="DescricaoNivel-${num}" type="text" placeholder="Escreva aqui..."></input>
                 </div>
-                <p class="erroDes escondido">Certifique-se que sua descrição tem no mínimo 30 caracteres.</p>
+                <p class="erroDes-${num} escondido">Certifique-se que sua descrição tem no mínimo 30 caracteres.</p>
             </div>
 
             <button class="salvar" onclick="verifNiv(this,${num})">Salvar Respostas!</button>
