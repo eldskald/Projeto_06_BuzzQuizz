@@ -42,7 +42,8 @@ function htmlTituloDoQuiz (quiz) {
 function htmlPergunta (pergunta, indice) {
     let respostasHTML = "";
     let arrRespostas = pergunta.answers;
-    arrRespostas.sort(() => Math.random() - 0.5);
+    // arrRespostas.sort(() => Math.random() - 0.5);
+    arrRespostas.sort(sorteio);
     for (let i = 0; i < arrRespostas.length; i++) {
         respostasHTML += htmlResposta(arrRespostas[i]);
     }
@@ -56,6 +57,12 @@ function htmlPergunta (pergunta, indice) {
             </div>
         </section>
     `;
+}
+
+function sorteio () {
+    const arr = new Uint8Array(1);
+    window.crypto.getRandomValues(arr);
+    return (arr[0] % 2) - 0.5;
 }
 
 function htmlResposta (resposta) {

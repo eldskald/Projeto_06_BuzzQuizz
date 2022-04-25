@@ -11,8 +11,8 @@
     --display: "Montserrat";
 
     --darkened: brightness(30%);
-    --unlit: brightness(70%);
-    --lit: brightness(130%);
+    --unlit: brightness(80%);
+    --lit: brightness(120%);
 }
 
 * {
